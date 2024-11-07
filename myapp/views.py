@@ -17,7 +17,7 @@ from .models import (
     # SelCobertura,
     # SelSabor,
     # TipoSabor,
-    Cobertura,
+    # Cobertura,
     ItensCarrinho,
 )
 from django.http import JsonResponse
@@ -31,6 +31,7 @@ def index(request):
 # lista os produtos do menu
 def menu(request):
     produtos = Produto.objects.filter(ativo=True)
+    print(produtos)
     # embalagens = Embalagem.objects.filter(ativo=True)
     # tipo_sabor = TipoSabor.objects.filter(ativo=True)
     # coberturas = Cobertura.objects.filter(ativo=True)
@@ -48,10 +49,19 @@ def menu(request):
 def adicionar_carrinho(request):
     # se request.user pertencer a algum grupo (nível de acesso)
     if request.user.groups.exists():
-        cliente = request.GET.get("cliente_id")
-        print("sim", cliente)
+        cliente_id = request.GET.get("cliente_id")
+
+        if cliente_id:
+            cliente = Cliente.objects.get(id=cliente_id)
+            print("Cliente selecionado:", cliente)
+        else:
+            cliente = request.user
+            print("Cliente padrão:", cliente)
     else:
         cliente = request.user
+
+    # Sua lógica para adicionar ao carrinho aqui
+    return render(request, "carrinho.html", {"cliente": cliente})
 
     # if request.method == "POST":
     #     produto_id = request.POST.get("produto_id")

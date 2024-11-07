@@ -1,0 +1,26 @@
+<form method="POST">
+    {% csrf_token %}
+    {{ cliente_form.as_p }}
+    <label for="cep">CEP:</label>
+    <input type="text" id="cep" name="cep" onblur="buscarEndereco()">
+
+    {{ endereco_form.as_p }}
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<script>
+    function buscarEndereco() {
+        var cep = document.getElementById('cep').value;
+        if (cep.length == 8) {
+            fetch(`/busca_cep/?cep=${cep}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('id_rua').value = data.logradouro;
+                    document.getElementById('id_bairro').value = data.bairro;
+                    document.getElementById('id_cidade').value = data.localidade;
+                    document.getElementById('id_estado').value = data.uf;
+                });
+        }
+    }
+</script>

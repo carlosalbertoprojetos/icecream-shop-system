@@ -29,8 +29,8 @@ class ItensCarrinhoInline(admin.TabularInline):
 
 @admin.register(models.Pedido)
 class PedidoAdmin(admin.ModelAdmin):
-    fields = ("data_pedido", "user", "pagamento", "pago", "entregue")
-    readonly_fields = ("user",)
+    fields = ("data_pedido", "usuario", "pagamento", "pago", "entregue")
+    readonly_fields = ("usuario",)
     inlines = [
         ItensCarrinhoInline,
     ]

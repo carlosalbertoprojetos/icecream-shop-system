@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
-from django.utils.timezone  import now
+from django.utils.timezone import now
 
 
 # py manage.py makemigrations && py manage.py migrate && py manage.py runserver
 
 
-# Picolé, Açaí, Sorvete, Chocolate, Biscoito
+# Tipo de mercadoria que será comercialiaca, ex: Picolé, Açaí, Sorvete, Chocolate, Biscoito
 class TipoMercadoria(models.Model):
     nome = models.CharField(max_length=50, unique=True)
     ativo = models.BooleanField(default=True)
@@ -32,7 +32,7 @@ class UnidadeMedida(models.Model):
         return self.um
 
 
-# Tipo de embalagem para o produto (1L - 1/5L - 2L - 400mL - 800mL )
+# Tipo da embalagem de armazenamento do produto (1L - 1/5L - 2L - 400mL - 800mL )
 class Embalagem(models.Model):
     nome = models.CharField(max_length=50, unique=True)
     ativo = models.BooleanField(default=True)
@@ -45,38 +45,17 @@ class Embalagem(models.Model):
         return self.nome
 
 
-# morango, chocolate, diamante negro, laka, etc
+# Sabores ofertados (morango, chocolate, diamante negro, laka, etc)
 class Sabor(models.Model):
     nome = models.CharField(max_length=100, unique=True)
     ativo = models.BooleanField(default=True)
-    # preco = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = "Adm - Sabor"
         verbose_name_plural = "Adm - Sabor"
 
-    # def preco_formatado(self):
-    #     return f"R$ {self.preco:.2f}"
-
     def __str__(self):
         return f"{self.nome}"
-
-
-# caramelo, chocolate, morango, ninho, etc
-class Cobertura(models.Model):
-    nome = models.CharField(max_length=50, unique=True)
-    ativo = models.BooleanField(default=True)
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
-
-    class Meta:
-        verbose_name = "Adm - Cobertura"
-        verbose_name_plural = "Adm - Cobertura"
-
-    def preco_formatado(self):
-        return f"R$ {self.preco:.2f}"
-
-    def __str__(self):
-        return f"{self.nome} | PREÇO: R$ {self.preco:.2f}"
 
 
 # base para a criação do produto
@@ -101,6 +80,7 @@ class Produto(models.Model):
     sabor = models.ForeignKey(Sabor, on_delete=models.RESTRICT)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     imagem = models.ImageField(upload_to="media")
+    descricao = models.CharField(max_length=255, null=True, blank=True)
     ativo = models.BooleanField(default=True)
 
     class Meta:
@@ -117,6 +97,7 @@ class Produto(models.Model):
 
 class FormaPagamento(models.Model):
     nome = models.CharField(max_length=10, unique=True)
+    ativo = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Adm - Formas de Pagamento"
@@ -131,7 +112,7 @@ class Entregador(models.Model):
     telefone = models.CharField(max_length=14, null=True, blank=True)
     vaiculo = models.CharField(max_length=50, null=True, blank=True)
     placa = models.CharField(max_length=7, null=True, blank=True)
-    cadastro = models.DateField(default=now)
+    data_cadastro = models.DateField(default=now)
     ativo = models.BooleanField(default=True)
 
     class Meta:
@@ -144,14 +125,20 @@ class Entregador(models.Model):
 
 class Pedido(models.Model):
     data_pedido = models.DateTimeField(default=now)
-    user = models.ForeignKey(User, related_name="pedido_user", on_delete=models.PROTECT)
-    pagamento = models.ForeignKey(FormaPagamento, on_delete=models.RESTRICT, null=True)
+    usuario = models.ForeignKey(
+        User, related_name="pedido_user", on_delete=models.PROTECT
+    )
+    forma_pagamento = models.ForeignKey(
+        FormaPagamento, on_delete=models.RESTRICT, null=True
+    )
     pago = models.BooleanField(default=False)
     entregue = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    atendente = models.ForeignKey(User, on_delete=models.RESTRICT)
     entregador = models.ForeignKey(
         Entregador, on_delete=models.RESTRICT, null=True, blank=True
     )
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return f"PEDIDO: {self.id} _/  USUÁRIO: {self.user} _/  VALOR: {self.total} _/ PAGO: {self.pago} _/  DATA: {self.data_pedido.strftime('%d/%m/%y %H:%M')} _/ ENTREGADOR: {self.entregador}"

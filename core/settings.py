@@ -47,8 +47,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps próprios
     "myapp",
+    "cliente",
     # terceiros
     "corsheaders",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.instagram",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +75,13 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django_session_timeout.middleware.SessionTimeoutMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
 
 # timeout tempo de inatividate no sistema
 SESSION_EXPIRE_SECONDS = 1800
@@ -127,6 +141,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
+SOCIALACCOUNT_PROVIDERS = {
+    "facebook": {
+        "METHOD": "oauth2",
+        "SCOPE": ["email"],
+        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+        "INIT_PARAMS": {"cookie": True},
+        "FIELDS": ["id", "email", "name", "first_name", "last_name"],
+        "EXCHANGE_TOKEN": True,
+        "LOCALE_FUNC": lambda request: "pt_BR",
+        "VERIFIED_EMAIL": False,
+        "VERSION": "v7.0",
+    },
+    "instagram": {
+        "APP": {
+            "client_id": "<YOUR_INSTAGRAM_CLIENT_ID>",
+            "secret": "<YOUR_INSTAGRAM_CLIENT_SECRET>",
+        }
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
