@@ -6,23 +6,12 @@ from datetime import datetime, timedelta
 
 # import pywhatkit as kit
 
-# from myapp.forms import PedidoUpdateForm
-from .models import (
-    FormaPagamento,
-    Produto,
-    # Embalagem,
-    # MontaPote,
-    Pedido,
-    # SacolaItens,
-    # SelCobertura,
-    # SelSabor,
-    # TipoSabor,
-    # Cobertura,
-    ItensCarrinho,
-)
+# from base.forms import PedidoUpdateForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
+from apps.cliente.models import Cliente
+from apps.produto.models import Produto
 
 def index(request):
     return render(request, "index.html")
@@ -235,7 +224,7 @@ def adicionar_carrinho(request):
 #     else:
 #         form = PedidoUpdateForm(instance=pedido)
 
-#     return render(request, "pedido.html", {"form": form, "pedido": pedido})
+#     return render(request, "pedido/pedido.html", {"form": form, "pedido": pedido})
 
 
 # # lista os pedidos do usuário

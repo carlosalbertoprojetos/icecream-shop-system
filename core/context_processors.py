@@ -1,7 +1,7 @@
-# from myapp import models
+# from project import models
 
 
-from myapp.models import Pedido
+from apps.pedido.models import Pedido
 
 
 def context_social(request):

@@ -2,8 +2,12 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-from .forms import ClienteForm, EnderecoForm
+from django.contrib.auth.decorators import login_required
 import requests
+
+
+from .forms import ClienteForm, EnderecoForm
+from apps.pedido.models import Pedido
 
 
 def clienteCadastro(request):
@@ -54,3 +58,18 @@ def busca_cep(request):
     data = response.json()
 
     return JsonResponse(data)
+
+
+
+
+
+
+
+# # lista os pedidos do usuário
+@login_required(login_url="/admin/login/")
+def meus_pedidos(request):
+    if request.user.is_staff:
+        meus_pedidos = Pedido.objects.all()
+    else:
+        meus_pedidos = Pedido.objects.filter(user=request.user)
+    return render(request, "meus-pedidos.html", {"meus_pedidos": meus_pedidos})

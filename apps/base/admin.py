@@ -1,17 +1,13 @@
 from django.contrib import admin
-from myapp import models
+from apps.base import models
 
 # Registre seus modelos aqui
-admin.site.register(models.TipoMercadoria)
-admin.site.register(models.UnidadeMedida)
-admin.site.register(models.Embalagem)
-admin.site.register(models.Sabor)
+
 # admin.site.register(models.Cobertura)
 
 
-admin.site.register(models.Base)
-admin.site.register(models.Produto)
-admin.site.register(models.FormaPagamento)
+admin.site.register(models.Entregador)
+
 
 # admin.site.register(models.ItensCarrinho)
 
@@ -20,20 +16,20 @@ admin.site.register(models.FormaPagamento)
 # class ItensCarrinhoAdmin(admin.ModelAdmin):
 #     readonly_fields = ("preco",)
 
+# admin.site.register(models.FormaPagamento)
+# class ItensCarrinhoInline(admin.TabularInline):
+#     model = models.ItensCarrinho
+#     readonly_fields = ("preco",)
+#     extra = 0
 
-class ItensCarrinhoInline(admin.TabularInline):
-    model = models.ItensCarrinho
-    readonly_fields = ("preco",)
-    extra = 0
 
-
-@admin.register(models.Pedido)
-class PedidoAdmin(admin.ModelAdmin):
-    fields = ("data_pedido", "usuario", "pagamento", "pago", "entregue")
-    readonly_fields = ("usuario",)
-    inlines = [
-        ItensCarrinhoInline,
-    ]
+# @admin.register(models.Pedido)
+# class PedidoAdmin(admin.ModelAdmin):
+#     fields = ("data_pedido", "usuario", "pagamento", "pago", "entregue")
+#     readonly_fields = ("usuario",)
+#     inlines = [
+#         ItensCarrinhoInline,
+#     ]
 
 
 # Sabor

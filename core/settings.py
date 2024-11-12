@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # apps próprios
-    "myapp",
-    "cliente",
+    "apps.base",
+    "apps.cliente",
+    "apps.produto",
+    "apps.pedido",
     # terceiros
     "corsheaders",
     "django.contrib.sites",
@@ -162,7 +164,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# https://docs.djangobase.com/en/4.1/ref/settings/#databases
 
 # DATABASES = {
 #     'default': {
@@ -189,7 +191,7 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+# https://docs.djangobase.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -208,7 +210,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
+# https://docs.djangobase.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = "pt-br"
 TIME_ZONE = "UTC"
@@ -217,13 +219,15 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+# https://docs.djangobase.com/en/4.1/howto/static-files/
 
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "myapp/static")]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"

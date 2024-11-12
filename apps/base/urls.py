@@ -1,10 +1,10 @@
 from django.urls import path
-from myapp import views
+from apps.base import views as v
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("menu/", views.menu, name="menu"),
-    path("carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
+    path("", v.index, name="index"),
+    path("menu/", v.menu, name="menu"),
+    path("carrinho/", v.adicionar_carrinho, name="adicionar_carrinho"),
     # path(
     #     "atualiza_quantidade_sacola/",
     #     views.atualiza_quantidade_sacola,
