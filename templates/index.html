@@ -6,15 +6,343 @@
 
 {% block content %}
 
-<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-4 fw-normal text-body-emphasis">Sorveteria</h1>
-    <p class="fs-5 text-body-secondary">O melhor sorvete da cidade! </p>
-    <p class="fs-5 text-body-secondary">Agora, com nosso menu online e serviço de entrega, você pode desfrutar dos
-        nossos deliciosos sorvetes no conforto da sua casa. Explore nossa diversificada seleção de sabores, desde os
-        clássicos até opções veganas. Garantimos entregas rápidas e frescas, trazendo a alegria do Sorveteria até
-        você. Celebramos momentos e indulgências do dia a dia.</p>
-    <p class="fs-5 text-body-secondary">Faça seu pedido e permita-nos adoçar seus dias com a magia do sorvete.</p>
-    <a class="btn btn-dark btn-lg" href="{% url 'menu' %}" role="button">Veja nosso Menu</a>
-</div>
+<section id="hero" class="hero section dark-background">
+    <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-item active">
+            <img src="{% static 'assets/img/hero-carousel/hero-carousel-1.jpg' %}" alt="">
+            <div class="carousel-container">
+                <h2><span>A Fábrica</span> Açaí e Sorvete</h2>
+                <p>Descubra os sabores irresistíveis do nosso açaí e sorvetes artesanais na A Fábrica! Cada
+                    colherada é uma explosão de frescor e sabor, feita com os melhores ingredientes. Venha
+                    experimentar nossas delícias e adoçar o seu dia!</p>
+                <div>
+                    <a href="#menu" class="btn-get-started">Nosso Menu</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'assets/img/hero-carousel/hero-carousel-2.jpg' %}" alt="">
+            <div class="carousel-container">
+                <h2>Sabores Irresistíveis <span>A Fábrica</span></h2>
+                <p>Os melhores sorvetes e açaí para refrescar seu dia. Prove e se apaixone por cada
+                    colherada!.</p>
+                <div>
+                    <a href="#menu" class="btn-get-started">Nosso Menu</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'assets/img/hero-carousel/hero-carousel-3.jpg' %}" alt="">
+            <div class="carousel-container">
+                <h2><span>A Fábrica</span> Sorvetes como você nunca viu</h2>
+                <p>Cremosos, refrescantes e cheios de sabor. Visite-nos e descubra suas novas sobremesas
+                    favoritas!</p>
+                <div>
+                    <a href="#menu" class="btn-get-started">Nosso Menu</a>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+        <ol class="carousel-indicators"></ol>
+    </div>
+
+</section>
+
+<section id="menu" class="menu section mt-5">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Menu</h2>
+        <div><span>Experimente nossos </span> <span class="description-title">Sabores</span></div>
+    </div>
+    <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul class="menu-filters isotope-filters">
+                    <li data-filter="*" class="filter-active">Tudo</li>
+                    <li data-filter=".filter-starters">Açaí</li>
+                    <li data-filter=".filter-salads">3 Litros</li>
+                    <li data-filter=".filter-specialty">5 Litros</li>
+                </ul>
+            </div>
+        </div><!-- Menu Filters -->
+
+        <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-6 menu-item isotope-item filter-starters">
+                <img src="{% static 'assets/img/menu/lobster-bisque.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Açaí El Chicano</a><span>R$ 57,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-salads">
+                <img src="{% static 'assets/img/menu/bread-barrel.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Ninho Trufado</a><span>R$ 47,50</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-salads">
+                <img src="{% static 'assets/img/menu/cake.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Diamante Negro/Ninho Trufado</a><span>R$ 47,50</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-salads">
+                <img src="{% static 'assets/img/menu/caesar.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Ninho Trufado/Morango</a><span>R$ 47,50</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-salads">
+                <img src="{% static 'assets/img/menu/tuscan-grilled.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Diamante Negro/Laka</a><span>R$ 47,50</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-specialty">
+                <img src="{% static 'assets/img/menu/mozzarella.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Chocolate Belga/Flocos</a><span>R$ 66,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 5 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-specialty">
+                <img src="{% static 'assets/img/menu/greek-salad.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Chocolate Belga/Mousse de Maracujá</a><span>R$ 66,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 5 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-specialty">
+                <img src="{% static 'assets/img/menu/spinach-salad.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Morango/Creme</a><span>R$ 66,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 5 litros
+                </div>
+            </div><!-- Menu Item -->
+
+            <div class="col-lg-6 menu-item isotope-item filter-specialty">
+                <img src="{% static 'assets/img/menu/lobster-roll.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Sorvete Mousse de Limão com Laka</a><span>R$ 66,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 5 litros
+                </div>
+            </div><!-- Menu Item -->
+
+        </div><!-- Menu Container -->
+
+    </div>
+
+</section>
+
+<section id="gallery" class="gallery section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Galeria</h2>
+        <div><span>Algumas fotos</span> <span class="description-title">Deliciosas</span></div>
+    </div><!-- End Section Title -->
+
+    <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-0">
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-1.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-1.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-2.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-2.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-3.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-3.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-4.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-4.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-5.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-5.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-6.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-6.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-7.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-7.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+            <div class="col-lg-3 col-md-4">
+                <div class="gallery-item">
+                    <a href="{% static 'assets/img/gallery/gallery-8.jpg' %}" class="glightbox"
+                        data-gallery="images-gallery">
+                        <img src="{% static 'assets/img/gallery/gallery-8.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div><!-- End Gallery Item -->
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Onde</h2>
+        <div><span>Veja nossa </span> <span class="description-title">Localização</span></div>
+    </div><!-- End Section Title -->
+
+    <div class="mb-5">
+        <iframe style="width: 100%; height: 400px;"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1879.902096984656!2d-42.63895114770235!3d-19.55001823738134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa551b136c66885%3A0xc34cf64726f8e3d6!2sA%20Fabrica%20A%C3%A7a%C3%AD%20e%20Sorvete!5e0!3m2!1spt-BR!2sbr!4v1728150401036!5m2!1spt-BR!2sbr"
+            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div><!-- End Google Maps -->
+
+    <div class="container" data-aos="fade">
+
+        <div class="row gy-5 gx-lg-5">
+
+            <div class="col-lg-4">
+
+                <div class="info">
+                    <h3>A Fábrica - Açaí e Sorvete</h3>
+                    <p>O Sorvete mais gostoso do vale!</p>
+
+                    <div class="info-item d-flex">
+                        <i class="bi bi-geo-alt flex-shrink-0"></i>
+                        <div>
+                            <h4>Localização:</h4>
+                            <p>Av. Acesita, 573, Olaria - Timóteo/MG</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            <h4>Email:</h4>
+                            <p>afabrica@exemplo.com.br</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex">
+                        <i class="bi bi-phone flex-shrink-0"></i>
+                        <div>
+                            <h4>Ligue:</h4>
+                            <p>(31) 99578-1020</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8">
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Seu Nome"
+                                required="">
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Seu Email"
+                                required="">
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Assunto"
+                            required="">
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" name="message" placeholder="Menssagem" required=""></textarea>
+                    </div>
+                    <div class="my-3">
+                        <div class="loading">Enviando</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Sua mensagem foi enviada com sucesso!</div>
+                    </div>
+                    <div class="text-center"><button type="submit">Enviar Mensagem</button></div>
+                </form>
+            </div><!-- End Contact Form -->
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

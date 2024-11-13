@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from apps.cliente.models import Cliente
 from apps.produto.models import Produto
 
+
 def index(request):
     return render(request, "index.html")
 
