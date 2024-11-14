@@ -121,9 +121,7 @@ class Entregador(models.Model):
         return self.nome
 
 
-
 # class FormaPagamento(models.Model):
-
 
 
 # class Pedido(models.Model):

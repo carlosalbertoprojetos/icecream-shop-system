@@ -71,6 +71,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "requestlogs.middleware.RequestLogsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -97,25 +98,25 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = "core.urls"
 
-# Logs
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "requestlogs_to_file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": "info.log",
-        },
-    },
-    "loggers": {
-        "requestlogs": {
-            "handlers": ["requestlogs_to_file"],
-            "level": "INFO",
-            "propagate": False,
-        },
-    },
-}
+# # Logs
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "requestlogs_to_file": {
+#             "level": "INFO",
+#             "class": "logging.FileHandler",
+#             "filename": "info.log",
+#         },
+#     },
+#     "loggers": {
+#         "requestlogs": {
+#             "handlers": ["requestlogs_to_file"],
+#             "level": "INFO",
+#             "propagate": False,
+#         },
+#     },
+# }
 
 REQUESTLOGS = {
     "SECRETS": ["password", "token"],
@@ -125,7 +126,7 @@ REQUESTLOGS = {
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [TEMPLATE_DIR],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -133,10 +134,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # Apps
-                # "core.context_processors.context_social",
-                # "core.context_processors.context_sacola",
             ],
+            "libraries": {
+                "templates_tags": "core.templatetags.templates_tags",
+            },
         },
     },
 ]

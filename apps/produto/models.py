@@ -1,8 +1,6 @@
 from django.db import models
 
 
-
-
 # Tipo de mercadoria que será comercialiaca, ex: Picolé, Açaí, Sorvete, Chocolate, Biscoito
 class TipoMercadoria(models.Model):
     nome = models.CharField(max_length=50, unique=True)
@@ -41,7 +39,6 @@ class Embalagem(models.Model):
         return self.nome
 
 
-
 # Sabores ofertados (morango, chocolate, diamante negro, laka, etc)
 class Sabor(models.Model):
     nome = models.CharField(max_length=100, unique=True)
@@ -65,12 +62,11 @@ class Base(models.Model):
 
     class Meta:
         unique_together = (("tipo", "um", "embalagem"),)
-        verbose_name = "1 - Base"
-        verbose_name_plural = "1 - Base"
+        verbose_name = "Base"
+        verbose_name_plural = "Base"
 
     def __str__(self):
         return f"{self.tipo} {self.embalagem}"
-
 
 
 class Produto(models.Model):
@@ -83,13 +79,11 @@ class Produto(models.Model):
 
     class Meta:
         unique_together = (("base", "sabor", "preco"),)
-        verbose_name = "2 - Produto"
-        verbose_name_plural = "2 - Produto"
+        verbose_name = "Produto"
+        verbose_name_plural = "Produto"
 
     def preco_formatado(self):
         return f"R$ {self.preco:.2f}"
 
     def __str__(self):
         return f"{self.base} {self.sabor} {self.preco_formatado()}"
-
-

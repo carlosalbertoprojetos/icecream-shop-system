@@ -33,11 +33,11 @@ class Pedido(models.Model):
     ativo = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"PEDIDO: {self.id} _/  USUÁRIO: {self.user} _/  VALOR: {self.total} _/ PAGO: {self.pago} _/  DATA: {self.data_pedido.strftime('%d/%m/%y %H:%M')} _/ ENTREGADOR: {self.entregador}"
+        return f"(PEDIDO: {self.id})  CLIENTE: {self.usuario} - VALOR: {self.total} - DATA: {self.data_pedido.strftime('%d/%m/%y')}/ HORA: {self.data_pedido.strftime('%H:%M')}"
 
     class Meta:
-        verbose_name = "3 - Pedido"
-        verbose_name_plural = "3 - Pedido"
+        verbose_name = "Pedido"
+        verbose_name_plural = "Pedido"
 
 
 class ItensCarrinho(models.Model):
@@ -49,8 +49,8 @@ class ItensCarrinho(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
     # class Meta:
-    #     verbose_name = "3 - Itens do Carrinho"
-    #     verbose_name_plural = "3 - Itens do Carrinho"
+    #     verbose_name = "Itens do Carrinho"
+    #     verbose_name_plural = "Itens do Carrinho"
 
     def preco_formatado(self):
         return f"R$ {self.preco:.2f}"
@@ -64,4 +64,3 @@ class ItensCarrinho(models.Model):
 
     def __str__(self):
         return f"CARINHO: {self.quantidade} - {self.produto} / R$ {self.preco_total()}"
-

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load static templates_tags %}
 
 {% block title %} Sorveteria {% endblock %}
 
@@ -53,6 +53,9 @@
 
 </section>
 
+{% show_menu %}
+
+<!-- 
 <section id="menu" class="menu section mt-5">
     <div class="container section-title" data-aos="fade-up">
         <h2>Menu</h2>
@@ -69,7 +72,7 @@
                     <li data-filter=".filter-specialty">5 Litros</li>
                 </ul>
             </div>
-        </div><!-- Menu Filters -->
+        </div>
 
         <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
 
@@ -81,7 +84,17 @@
                 <div class="menu-ingredients">
                     Caixa 3 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
+
+            <div class="col-lg-6 menu-item isotope-item filter-starters">
+                <img src="{% static 'assets/img/menu/lobster-bisque.jpg' %}" class="menu-img" alt="">
+                <div class="menu-content">
+                    <a href="#">Açaí El Chicano</a><span>R$ 57,00</span>
+                </div>
+                <div class="menu-ingredients">
+                    Caixa 3 litros
+                </div>
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-salads">
                 <img src="{% static 'assets/img/menu/bread-barrel.jpg' %}" class="menu-img" alt="">
@@ -91,7 +104,7 @@
                 <div class="menu-ingredients">
                     Caixa 3 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-salads">
                 <img src="{% static 'assets/img/menu/cake.jpg' %}" class="menu-img" alt="">
@@ -101,7 +114,7 @@
                 <div class="menu-ingredients">
                     Caixa 3 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-salads">
                 <img src="{% static 'assets/img/menu/caesar.jpg' %}" class="menu-img" alt="">
@@ -111,7 +124,7 @@
                 <div class="menu-ingredients">
                     Caixa 3 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-salads">
                 <img src="{% static 'assets/img/menu/tuscan-grilled.jpg' %}" class="menu-img" alt="">
@@ -121,7 +134,7 @@
                 <div class="menu-ingredients">
                     Caixa 3 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-specialty">
                 <img src="{% static 'assets/img/menu/mozzarella.jpg' %}" class="menu-img" alt="">
@@ -131,7 +144,7 @@
                 <div class="menu-ingredients">
                     Caixa 5 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-specialty">
                 <img src="{% static 'assets/img/menu/greek-salad.jpg' %}" class="menu-img" alt="">
@@ -141,7 +154,7 @@
                 <div class="menu-ingredients">
                     Caixa 5 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-specialty">
                 <img src="{% static 'assets/img/menu/spinach-salad.jpg' %}" class="menu-img" alt="">
@@ -151,7 +164,7 @@
                 <div class="menu-ingredients">
                     Caixa 5 litros
                 </div>
-            </div><!-- Menu Item -->
+            </div>
 
             <div class="col-lg-6 menu-item isotope-item filter-specialty">
                 <img src="{% static 'assets/img/menu/lobster-roll.jpg' %}" class="menu-img" alt="">
@@ -161,13 +174,10 @@
                 <div class="menu-ingredients">
                     Caixa 5 litros
                 </div>
-            </div><!-- Menu Item -->
-
-        </div><!-- Menu Container -->
-
+            </div>
+        </div>
     </div>
-
-</section>
+</section> -->
 
 <section id="gallery" class="gallery section">
 

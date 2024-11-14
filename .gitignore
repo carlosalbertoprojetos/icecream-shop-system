@@ -7,7 +7,7 @@ db.sqlite3
 static_media
 /static_files
 static_files
-# /media
+/media
 mydatabase
 file_name.sql
 __pycache__ 

@@ -16,7 +16,7 @@ class Cliente(models.Model):
 
 class Endereco(models.Model):
     cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
-    cep = models.CharField(max_length=8)
+    cep = models.CharField(max_length=10)
     logradouro = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
     cidade = models.CharField(max_length=100)

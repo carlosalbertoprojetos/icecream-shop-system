@@ -48,67 +48,16 @@
     </head>
 
     <body class="index-page">
-        <header id="header" class="header fixed-top">
-            <div class="topbar d-flex align-items-center">
-                <div class="container d-flex justify-content-end justify-content-md-between">
-                    <div class="contact-info d-flex align-items-center">
-                        <i class="bi bi-phone d-flex align-items-center d-none d-lg-block"><span>(31)
-                                99578-1020</span></i>
-                        <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Seg a Sex: 09:00 - 19:00 e
-                                Sábado:
-                                09:00 - 13:00</span></i>
-                    </div>
-                </div>
-            </div>
-            <div class="branding d-flex align-items-cente">
-                <div class="container position-relative d-flex align-items-center justify-content-between">
-                    <a href="index.html" class="logo d-flex align-items-center">
-                        <!-- <img src="assets/img/logo.png" alt=""> -->
-                        <h2 class="sitename ps-2">A Fábrica</h2>
-                    </a>
-                    <nav id="navmenu" class="navmenu">
-                        <ul>
-                            <li><a href="#hero" class="active">Home</a></li>
-                            <!-- <li><a href="#about">Sobre</a></li> -->
-                            <li><a href="#menu">Menu</a></li>
-                            <!-- <li><a href="#specials">Especiais</a></li> -->
-                            <!-- <li><a href="#events">Eventos</a></li> -->
-                            <!-- <li><a href="#chefs">Chefs</a></li> -->
-                            <li><a href="#gallery">Galeria</a></li>
-                            <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i
-                                        class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Dropdown 1</a></li>
-                                    <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
-                                                class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                        <ul>
-                                            <li><a href="#">Deep Dropdown 1</a></li>
-                                            <li><a href="#">Deep Dropdown 2</a></li>
-                                            <li><a href="#">Deep Dropdown 3</a></li>
-                                            <li><a href="#">Deep Dropdown 4</a></li>
-                                            <li><a href="#">Deep Dropdown 5</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Dropdown 2</a></li>
-                                    <li><a href="#">Dropdown 3</a></li>
-                                    <li><a href="#">Dropdown 4</a></li>
-                                </ul>
-                            </li> -->
-                            <li><a href="#contact">Contato</a></li>
-                        </ul>
-                        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-                    </nav>
-                </div>
-            </div>
-        </header>
 
+        {% include 'includes/header.html' %}
 
+        {% include 'components/message.html' %}
 
         <main class="">
             {% block content %}
             {% endblock %}
         </main>
-        </div>
+
 
         <footer id="footer" class="footer dark-background">
 

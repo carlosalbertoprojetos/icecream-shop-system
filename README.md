@@ -12,6 +12,11 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 - PostgreSQL ou SQLite (dependendo da configuração)
 - Git (para controle de versão)
 
+
+## pytest-cov
+
+Para controlar a cobertura de testes dos apps foi utilizado o pytest-cov, uma extensão (plugin) do framework de teste Pytest que é usado para medir a cobertura de código dos testes automatizados em Python. Ele ajuda a determinar quais partes do código-fonte do projeto estão sendo testadas pelos testes e a calcula a porcentagem de cobertura de código.
+
 ## Passos de Instalação
 
 ### 1. Clonar o repositório
