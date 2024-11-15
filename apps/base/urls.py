@@ -1,10 +1,12 @@
 from django.urls import path
 from apps.base import views as v
 
+app_name = "base"
+
 urlpatterns = [
     path("", v.index, name="index"),
-    path("menu/", v.menu, name="menu"),
-    path("carrinho/", v.adicionar_carrinho, name="adicionar_carrinho"),
+    # path("menu/", v.menu, name="menu"),
+    # path("carrinho/", v.adicionar_carrinho, name="adicionar_carrinho"),
     # path(
     #     "atualiza_quantidade_sacola/",
     #     views.atualiza_quantidade_sacola,

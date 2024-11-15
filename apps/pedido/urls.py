@@ -1,8 +1,11 @@
 from django.urls import path
 from . import views as v
 
+app_name = "pedido"
+
 urlpatterns = [
-    path('adicionar/<int:product_id>/', v.adicionarAoCarrinho_view, name='adicionarAoCarrinho_view'),
-    path('remover/<int:product_id>/', v.removerDoCarrinho, name='removerDoCarrinho'),
-    path('carrinho/', v.exibirCarrinho, name='exibirCarrinho')
+    path("adicionar-item/<int:item_id>/", v.adicionar_item, name="adicionar_item"),
+    path("remover-item/<int:item_id>/", v.remover_item, name="remover_item"),
+    path("sacola-itens/", v.total_itens_sacola, name="total_itens_sacola"),
+    path("checkout/", v.checkout, name="checkout_pedido"),
 ]

@@ -26,9 +26,75 @@
                 <div class="menu-ingredients">
                     {{ item.base.embalagem }}
                 </div>
+                <button class="btn btn-primary add-to-cart" data-item-id="{{ item.id }}">Adicionar à Sacola</button>
             </div>
             {% endfor %}
-
         </div>
     </div>
 </section>
+
+<script>
+    function atualizarSacolaIcone(totalItens) {
+        const sacolaIcon = document.getElementById('sacola-icon');
+        const sacolaCount = document.getElementById('sacola-count');
+
+        if (totalItens > 0) {
+            sacolaIcon.classList.remove('bi-bag');
+            sacolaIcon.classList.add('bi-bag-fill');
+            sacolaCount.classList.remove('d-none');
+            sacolaCount.innerText = totalItens;
+
+            // Abrir automaticamente o sidebar se houver itens na sacola
+            // const sidebarSacola = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
+            // sidebarSacola.show();
+        } else {
+            sacolaIcon.classList.remove('bi-bag-fill');
+            sacolaIcon.classList.add('bi-bag');
+            sacolaCount.classList.add('d-none');
+        }
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(function (button) {
+        button.addEventListener('click', function () {
+            let itemId = button.getAttribute('data-item-id');
+            fetch(`/pedido/adicionar-item/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    atualizarSacolaIcone(data.total_itens);
+                })
+                .catch(error => console.error('Erro:', error));
+        });
+    });
+
+    // Ao carregar a página, inicializar o estado da sacola
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/pedido/sacola-itens/')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('URL não encontrada');
+            })
+            .then(data => {
+                const totalItens = data.total_itens || 0; // Garante que totalItens seja 0 caso não exista
+                atualizarSacolaIcone(totalItens); // Reutiliza a lógica existente
+
+                // Exibe o sidebar ao clicar na sacola cheia
+                const sacolaIconContainer = document.getElementById('sacola-icon-container');
+                if (sacolaIconContainer) {
+                    sacolaIconContainer.addEventListener('click', function () {
+                        const sidebar = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
+                        sidebar.show();
+                    });
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+    });
+
+</script>

@@ -2,22 +2,17 @@ from django import template
 from datetime import date, datetime
 from django.db.models import Max
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 
 from apps.produto.models import Produto
+from apps.pedido.views import get_sacola, get_total_itens, calcular_totais
 
 register = template.Library()
 
 
-# @register.inclusion_tag("includes/header.html")
-# def show_header():
-#     data = Home.objects.filter(atual=True)
-#     context = {"data": data}
-#     return context
-
-
-@register.inclusion_tag("includes/menu.html")
-def show_menu():
+@register.inclusion_tag("includes/menu.html", takes_context=True)
+def show_menu(context):
     itens = Produto.objects.filter(ativo=True)
     embalagens = (
         Produto.objects.filter(ativo=True)
@@ -25,7 +20,37 @@ def show_menu():
         .distinct()
     )
 
-    context = {"embalagens": embalagens, "itens": itens}
+    context.update({"embalagens": embalagens, "itens": itens})
+    return context
+
+
+@register.inclusion_tag("includes/wallet.html", takes_context=True)
+def show_wallet(context):
+    request = context["request"]
+    sacola = get_sacola(request)
+    sacola, total_geral = calcular_totais(sacola)
+    total_itens = get_total_itens(sacola)
+
+    # Calcula os itens detalhados e o total acumulado
+    itens_detalhados = []
+    total_acumulado = 0
+
+    for item in sacola:
+        produto = Produto.objects.get(id=item["id"])
+        quantidade = item["quantidade"]
+        total_item = quantidade * produto.preco
+        total_acumulado += total_item
+
+        itens_detalhados.append(
+            {
+                "nome": produto.sabor,
+                "quantidade": quantidade,
+                "preco_unitario": produto.preco,
+                "total": total_item,
+            }
+        )
+
+    context = {"sacola": sacola, "total_itens": total_itens, "total_geral": total_geral}
     return context
 
 

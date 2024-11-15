@@ -1,6 +1,10 @@
 from django.urls import path
 from apps.cliente import views
 
+
+app_name = "cliente"
+
+
 urlpatterns = [
     path("cadastrar/", views.clienteCadastro, name="clienteCadastro"),
     path("busca_cep/", views.busca_cep, name="busca_cep"),

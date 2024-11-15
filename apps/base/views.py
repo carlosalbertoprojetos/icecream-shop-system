@@ -21,7 +21,7 @@ def index(request):
 # lista os produtos do menu
 def menu(request):
     produtos = Produto.objects.filter(ativo=True)
-    print(produtos)
+
     # embalagens = Embalagem.objects.filter(ativo=True)
     # tipo_sabor = TipoSabor.objects.filter(ativo=True)
     # coberturas = Cobertura.objects.filter(ativo=True)

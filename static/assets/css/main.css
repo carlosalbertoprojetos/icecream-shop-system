@@ -1661,3 +1661,14 @@ section,
 .sitename {
     color: var(--accent-color);
 }
+
+
+
+.sacola-icon {
+    position: relative;
+}
+
+.sacola-icon .badge {
+    font-size: 0.75em;
+    padding: 0.5em;
+}
