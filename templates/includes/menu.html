@@ -35,26 +35,37 @@
 </section>
 
 <script>
+
+    // Ao carregar a página (ou quando o JavaScript for executado), verifica se há dados armazenados no localStorage e atualiza o carrinho com o número de itens.
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtém o número total de itens do carrinho armazenado no localStorage
+        const totalItens = Number(localStorage.getItem('totalItensCarrinho')) || 0;
+        atualizarSacolaIcone(totalItens);  // Atualiza o ícone da sacola com o número de itens
+        // const sacolaCount = document.getElementById('sacola-count');
+        // sacolaCount.innerHTML = totalItens
+    });
+
+    // Função para atualizar o ícone da sacola com o número total de itens
     function atualizarSacolaIcone(totalItens) {
-        const sacolaIcon = document.getElementById('sacola-icon');
+        // Armazena o total de itens no localStorage
+        const sacolaIcone = document.getElementById('sacola-icon');
         const sacolaCount = document.getElementById('sacola-count');
 
+        // Atualiza o ícone da sacola e o contador
         if (totalItens > 0) {
-            sacolaIcon.classList.remove('bi-bag');
-            sacolaIcon.classList.add('bi-bag-fill');
+            sacolaIcone.classList.remove('bi-bag');
+            sacolaIcone.classList.add('bi-bag-fill');
             sacolaCount.classList.remove('d-none');
             sacolaCount.innerText = totalItens;
-
-            // Abrir automaticamente o sidebar se houver itens na sacola
-            // const sidebarSacola = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
-            // sidebarSacola.show();
         } else {
-            sacolaIcon.classList.remove('bi-bag-fill');
-            sacolaIcon.classList.add('bi-bag');
+            sacolaIcone.classList.remove('bi-bag-fill');
+            sacolaIcone.classList.add('bi-bag');
             sacolaCount.classList.add('d-none');
         }
+        localStorage.setItem('totalItensCarrinho', totalItens);
     }
 
+    // Adiciona um ouvinte para o evento de clique nos botões "Adicionar ao Carrinho"
     document.querySelectorAll('.add-to-cart').forEach(function (button) {
         button.addEventListener('click', function () {
             let itemId = button.getAttribute('data-item-id');
@@ -67,35 +78,37 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    atualizarSacolaIcone(data.total_itens);
+                    // Verifica o retorno da API e atualiza o ícone da sacola com o novo total de itens
+                    atualizarSacolaIcone(data.total_itens);  // Atualiza o ícone da sacola com o total
                 })
                 .catch(error => console.error('Erro:', error));
         });
     });
 
-    // Ao carregar a página, inicializar o estado da sacola
+    // Carrega os dados da sacola ao carregar a página
     document.addEventListener("DOMContentLoaded", function () {
         fetch('/pedido/sacola-itens/')
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    return response.json();  // Processa a resposta como JSON
                 }
                 throw new Error('URL não encontrada');
             })
             .then(data => {
-                const totalItens = data.total || 0; // Garante que totalItens seja 0 caso não exista
-                atualizarSacolaIcone(totalItens); // Reutiliza a lógica existente
+                const totalItens = data.total || 0;  // Extrai o número total de itens
+                // atualizarSacolaIcone(totalItens);  // Atualiza o ícone da sacola com o total de itens
 
-                // Exibe o sidebar ao clicar na sacola cheia
                 const sacolaIconContainer = document.getElementById('sacola-icon-container');
                 if (sacolaIconContainer) {
                     sacolaIconContainer.addEventListener('click', function () {
                         const sidebar = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
-                        sidebar.show();
+                        sidebar.show();  // Mostra o sidebar
                     });
+                } else {
+                    console.error('Elemento sacola-icon-container não encontrado');
                 }
             })
-            .catch(error => console.error('Erro:', error));
+            .catch(error => console.error('Erro:', error));  // Trata qualquer erro
     });
 
 </script>

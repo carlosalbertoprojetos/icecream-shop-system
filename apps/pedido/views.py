@@ -54,6 +54,22 @@ def adicionar_item(request, item_id):
     return response
 
 
+def exibir_sacola(request):
+    sacola = get_sacola(request)
+    sacola, total_acumulado = calcular_totais(sacola)  # Calcular os totais
+    total_itens = get_total_itens(sacola)
+
+    return render(
+        request,
+        "index.html",
+        {
+            "sacola": sacola,
+            "total_itens": total_itens,
+            "total_acumulado": total_acumulado,
+        },
+    )
+
+
 def total_itens_sacola(request):
     sacola = get_sacola(request)
     total_itens = get_total_itens(sacola)

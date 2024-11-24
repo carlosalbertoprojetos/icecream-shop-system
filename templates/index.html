@@ -21,25 +21,19 @@
         </h4>
 
         {% if sacola %}
-        <ul class="list-group mb-3">
+        <ul id="itens-sacola" class="list-group mb-3">
             {% for item in sacola %}
             <li class="list-group-item d-flex justify-content-between lh-sm">
-                <!-- <li class="list-group-item d-flex justify-content-between align-items-center"> -->
                 <div>
-                    <h6 class="my-0"><strong>{{ item.nome }}</strong></h6> <br>
+                    <h6 class="my-0"><strong>{{ item.nome }}</strong></h6><br>
                     <small class="text-muted">Quantidade: {{ item.quantidade }}</small>
                 </div>
                 <span class="text-muted">R$ {{ item.total|floatformat:2 }}</span>
             </li>
             {% endfor %}
         </ul>
-        <div class="d-flex justify-content-between">
-            <strong>Total Acumulado</strong>
-            <strong>R$ {{ total_acumulado|floatformat:2 }}</strong>
-        </div>
-        {% else %}
-        <p class="text-center">Sua sacola está vazia.</p>
         {% endif %}
+
 
         <button type="button" class="btn btn-success btn-lg mt-3 w-100">
             <a href="{% url 'pedido:checkout_pedido' %}" class=" link-light text-decoration-none">
