@@ -85,30 +85,4 @@
         });
     });
 
-    // Carrega os dados da sacola ao carregar a página
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('/pedido/sacola-itens/')
-            .then(response => {
-                if (response.ok) {
-                    return response.json();  // Processa a resposta como JSON
-                }
-                throw new Error('URL não encontrada');
-            })
-            .then(data => {
-                const totalItens = data.total || 0;  // Extrai o número total de itens
-                // atualizarSacolaIcone(totalItens);  // Atualiza o ícone da sacola com o total de itens
-
-                const sacolaIconContainer = document.getElementById('sacola-icon-container');
-                if (sacolaIconContainer) {
-                    sacolaIconContainer.addEventListener('click', function () {
-                        const sidebar = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
-                        sidebar.show();  // Mostra o sidebar
-                    });
-                } else {
-                    console.error('Elemento sacola-icon-container não encontrado');
-                }
-            })
-            .catch(error => console.error('Erro:', error));  // Trata qualquer erro
-    });
-
 </script>

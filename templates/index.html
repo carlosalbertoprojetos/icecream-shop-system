@@ -425,31 +425,59 @@
 </section>
 
 
-{% endblock %}
+<script>
 
-{% block scripts %}
+    // Carrega os dados da sacola ao carregar a página
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/pedido/sacola-itens/')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Dados da sacola recebidos:', data);  // Verifica os dados recebidos
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                // Atualizando a quantidade total de itens
+                const totalItens = data.total_itens || 0;
 
-<!-- <script>
-    $(document).ready(function () {
-        var id = $(this).data('id');
-        $.ajax({
-            url: "{ url 'cliente:carrinho_detalhes' %}",
-            type: 'POST',
-            data: {
-                'pedido_id': id,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (error) {
-                console.log(error);
-                alert('Erro ao atualizar o pedido.');
-            }
-        });
+
+                const sacolaIconContainer = document.getElementById('sacola-icon-container');
+                if (sacolaIconContainer) {
+                    sacolaIconContainer.addEventListener('click', function () {
+                        const sidebar = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
+                        sidebar.show();  // Mostra o sidebar
+                    });
+                } else {
+                    console.error('Elemento sacola-icon-container não encontrado');
+                }
+
+                // Atualizando o total acumulado
+                const totalAcumulado = data.total_acumulado || '0.00';
+
+
+                // Atualizando os itens da sacola
+                const itensTabela = data.sacola.map(item => {
+                    return `
+                        <tr>
+                            <td>${item.nome}</td>
+                            <td>${item.quantidade}</td>
+                            <td>R$ ${parseFloat(item.preco).toFixed(2)}</td>
+                            <td>R$ ${parseFloat(item.total).toFixed(2)}</td>
+                            <td>
+                                <!-- Forma correta de adicionar o ID usando Django template -->
+                                <form action="{ url 'pedido:remover-item' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="item_id" value="${item.id}">
+                                    <button type="submit">Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+
+            })
+            .catch(error => console.error('Erro:', error));  // Trata qualquer erro
     });
-</script> -->
+
+
+</script>
 
 {% endblock %}
