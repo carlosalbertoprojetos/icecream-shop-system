@@ -1,7 +1,0 @@
-<h1>Sacola de Compras</h1>
-<ul>
-  {% for item in cart_items %}
-    <li>{{ item.product.name }} - Quantidade: {{ item.quantity }} - Subtotal: {{ item.subtotal }}</li>
-  {% endfor %}
-</ul>
-<p>Total: {{ total }}</p>

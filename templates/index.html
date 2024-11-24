@@ -42,7 +42,7 @@
         {% endif %}
 
         <button type="button" class="btn btn-success btn-lg mt-3 w-100">
-            <a href="" class=" link-light text-decoration-none">
+            <a href="{% url 'pedido:checkout_pedido' %}" class=" link-light text-decoration-none">
                 Finalizar Pedido
             </a>
         </button>
@@ -80,23 +80,6 @@
         <p>Total: {{ carrinho.get_total_preco }}</p>
     </div>
 </div>
-
-<script>
-    function removerItem(itemId) {
-        fetch(`/cliente/carrinho_remover/${itemId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Atualizar visualmente a sacola
-                alert(data.status);
-            });
-    }
-</script>
 
 <section id="hero" class="hero section dark-background">
     <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">

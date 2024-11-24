@@ -60,11 +60,6 @@ def busca_cep(request):
     return JsonResponse(data)
 
 
-
-
-
-
-
 # # lista os pedidos do usuário
 @login_required(login_url="/admin/login/")
 def meus_pedidos(request):
