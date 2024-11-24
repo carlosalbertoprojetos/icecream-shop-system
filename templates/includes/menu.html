@@ -26,7 +26,8 @@
                 <div class="menu-ingredients">
                     {{ item.base.embalagem }}
                 </div>
-                <button class="btn btn-primary add-to-cart" data-item-id="{{ item.id }}">Adicionar à Sacola</button>
+                <div class="text-end"><button class="btn btn-primary btn-sm add-to-cart"
+                        data-item-id="{{ item.id }}">Adicionar à Sacola</button></div>
             </div>
             {% endfor %}
         </div>
