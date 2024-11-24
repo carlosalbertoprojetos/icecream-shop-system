@@ -6,9 +6,97 @@
 
 {% block content %}
 
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="sidebarSacolaLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarSacolaLabel">Sacola de Itens</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
 
+    <div id="messageAlert"></div>
 
-<div class="hidden">{% show_wallet %}</div>
+    <div class="offcanvas-body">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Meus Itens</span>
+            <span class="badge bg-primary rounded-pill">{{ total_itens }}</span>
+        </h4>
+
+        {% if sacola %}
+        <ul class="list-group mb-3">
+            {% for item in sacola %}
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <!-- <li class="list-group-item d-flex justify-content-between align-items-center"> -->
+                <div>
+                    <h6 class="my-0"><strong>{{ item.nome }}</strong></h6> <br>
+                    <small class="text-muted">Quantidade: {{ item.quantidade }}</small>
+                </div>
+                <span class="text-muted">R$ {{ item.total|floatformat:2 }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="d-flex justify-content-between">
+            <strong>Total Acumulado</strong>
+            <strong>R$ {{ total_acumulado|floatformat:2 }}</strong>
+        </div>
+        {% else %}
+        <p class="text-center">Sua sacola está vazia.</p>
+        {% endif %}
+
+        <button type="button" class="btn btn-success btn-lg mt-3 w-100">
+            <a href="" class=" link-light text-decoration-none">
+                Finalizar Pedido
+            </a>
+        </button>
+        <hr>
+        <div class="text-center">
+            <h1>Carrinho de Compras</h1>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in sacola %}
+                <tr>
+                    <td>{{ item.produto.nome }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.preco }}</td>
+                    <td>{{ item.total_preco }}</td>
+                    <td>
+                        <form action="{% url 'cliente:carrinho_remover' item.produto.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Total: {{ carrinho.get_total_preco }}</p>
+    </div>
+</div>
+
+<script>
+    function removerItem(itemId) {
+        fetch(`/cliente/carrinho_remover/${itemId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Atualizar visualmente a sacola
+                alert(data.status);
+            });
+    }
+</script>
 
 <section id="hero" class="hero section dark-background">
     <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
@@ -359,5 +447,32 @@
 
 </section>
 
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- <script>
+    $(document).ready(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: "{ url 'cliente:carrinho_detalhes' %}",
+            type: 'POST',
+            data: {
+                'pedido_id': id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Erro ao atualizar o pedido.');
+            }
+        });
+    });
+</script> -->
 
 {% endblock %}

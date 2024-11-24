@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from apps.produto.models import Produto
+from core import settings
+
 
 class Cliente(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -26,3 +29,42 @@ class Endereco(models.Model):
 
     def __str__(self):
         return f"{self.logradouro}, {self.numero} - {self.bairro}, {self.cidade}"
+
+
+class Carrinho(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.RESTRICT, null=True, blank=True)
+    produtos = models.ManyToManyField(Produto, blank=True)
+    total = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
+    updated = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Carrinho"
+
+    def __str__(self):
+        return str(self.id)
+
+
+# class ItensCarrinho(models.Model):
+#     produto = models.ForeignKey(
+#         Produto, related_name="produto", on_delete=models.CASCADE
+#     )
+#     quantidade = models.PositiveIntegerField(default=1)
+#     preco = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+
+#     # class Meta:
+#     #     verbose_name = "Itens do Carrinho"
+#     #     verbose_name_plural = "Itens do Carrinho"
+
+#     def preco_formatado(self):
+#         return f"R$ {self.preco:.2f}"
+
+#     # calcula a soma dos preços de todos os produtos da sacola
+#     def preco_total(self):
+#         total = self.produto.preco * self.quantidade
+#         self.preco = total
+#         self.save()
+#         return total
+
+#     def __str__(self):
+#         return f"CARINHO: {self.quantidade} - {self.produto} / R$ {self.preco_total()}"

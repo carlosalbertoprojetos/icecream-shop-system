@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cliente, Endereco
+from .models import Cliente, Endereco, Carrinho
 
 
 # admin.site.register(models.FormaPagamento)
@@ -25,3 +25,8 @@ class ClienteAdmin(admin.ModelAdmin):
     inlines = [
         EnderecoInline,
     ]
+
+
+# https://youtu.be/Ng8mIF5Ny_w
+@admin.register(Carrinho)
+class CarrinhoAdmin(admin.ModelAdmin): ...

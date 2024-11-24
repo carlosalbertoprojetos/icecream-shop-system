@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
 {% block title %} Pedidos {% endblock %}
 
-{% block content %}
+{% block carrinho %}
 
 <div class="mb-5">
     <h2>Meus Pedidos</h2>
@@ -18,7 +18,6 @@
                     class="fas fa-times-circle link-danger"></i>{% endif %}</p>
             <p>Status da Entrega: {% if mp.entrega %}<i class="fas fa-check-circle link-success"></i>{% else %}<i
                     class="fas fa-times-circle link-danger"></i>{% endif %}</p>
-
             <button type="button" class="btn btn-success whatsapp-btn" data-id="{{ mp.id }}">Acompanhar pelo
                 Whatsapp</button>
         </div>
@@ -64,7 +63,7 @@
         $('.whatsapp-btn').click(function () {
             var id = $(this).data('id');
             $.ajax({
-                url: "{% url 'enviar_whatsapp_pedido' %}",
+                url: "{ url 'enviar_whatsapp_pedido' %}",
                 type: 'POST',
                 data: {
                     'pedido_id': id,

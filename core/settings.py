@@ -98,6 +98,8 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = "core.urls"
 
+CART_SESSION_ID = "carrinho"
+
 # # Logs
 # LOGGING = {
 #     "version": 1,
