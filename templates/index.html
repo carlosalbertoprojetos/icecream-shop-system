@@ -71,8 +71,18 @@
                 {% endfor %}
             </tbody>
         </table>
+        <h1>SACOLA</h1>
+        <p>Total: {{ sacola.get_total_preco }}</p>
+        {% for item in request.session.sacola.values %}
+        <li>{{ item.nome }} - {{ item.quantidade }}</li>
+        {% endfor %}
+        <h1>CARRINHO</h1>
         <p>Total: {{ carrinho.get_total_preco }}</p>
+        {% for item in request.session.carrinho.values %}
+        <li>{{ item.nome }} - {{ item.quantidade }}</li>
+        {% endfor %}
     </div>
+
 </div>
 
 <section id="hero" class="hero section dark-background">

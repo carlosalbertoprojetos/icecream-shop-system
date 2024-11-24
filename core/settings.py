@@ -98,7 +98,15 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = "core.urls"
 
-CART_SESSION_ID = "carrinho"
+CART_SESSION_ID = "sacola"
+
+# configurações para o armazenamento de dados da sacola na session
+SESSION_ENGINE = (
+    "django.contrib.sessions.backends.db"  # Usa o banco de dados para sessões
+)
+SESSION_COOKIE_AGE = 1209600  # 2 semanas
+SESSION_SAVE_EVERY_REQUEST = True  # Salva a sessão a cada requisição
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Mantém a sessão ativa após fechar o navegador
 
 # # Logs
 # LOGGING = {
