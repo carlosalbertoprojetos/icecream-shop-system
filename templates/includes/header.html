@@ -79,3 +79,16 @@
         </div>
     </div>
 </header>
+
+<script>document.addEventListener("DOMContentLoaded", function () {
+        // Aqui você pode garantir que o código seja executado após a renderização da página
+        const buttons = document.querySelectorAll("button[type='submit']");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                // Manipula o clique do botão
+                console.log("Botão de remover foi clicado");
+            });
+        });
+    });
+</script>

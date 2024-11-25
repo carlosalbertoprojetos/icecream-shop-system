@@ -60,8 +60,22 @@ def total_itens_sacola(request):
     sacola = get_sacola(request)
     sacola, total_acumulado = calcular_totais(sacola)  # Calcular os totais
     total_itens = get_total_itens(sacola)
+
+    # Formatar os dados para serem renderizados no template
+    # sacola_formatada = [
+    #     {
+    #         "id": item.get("id"),
+    #         "nome": item.get("nome"),
+    #         "quantidade": item.get("quantidade"),
+    #         "preco": item.get("preco"),
+    #         "total": item.get("total"),
+    #     }
+    #     for item in sacola
+    # ]
+
     return JsonResponse(
         {
+            # "sacola_formatada": sacola_formatada,
             "sacola": sacola,
             "total_itens": total_itens,
             "total_acumulado": total_acumulado,
