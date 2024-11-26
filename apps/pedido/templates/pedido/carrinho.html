@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Carrinho {% endblock %}
+
+{% block content %}
+
+<section id="hero" class="section dark-background">
+    <div class="card custom-card vh-100">
+        <div class="card-body">
+            <div class="card-title">
+                <h1>Carrinho de Compras</h1>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                        <th>Ações</th>
+                    </tr>
+                    {% for produto_id, item in carrinho.items %}
+                    <tr>
+                        <td>{{ item.nome }}</td>
+                        <td>R$ {{ item.preco|floatformat:2 }}</td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>R$ {{ item.total|floatformat:2 }}</td>
+                        <td>
+                            <a href="{% url 'pedido:remover_item' produto_id %}">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total do Pedido</strong></td>
+                            <td><strong>R$ {{ total_pedido|floatformat:2 }}</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

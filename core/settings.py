@@ -98,13 +98,14 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = "core.urls"
 
-CART_SESSION_ID = "sacola"
+CART_SESSION_ID = "carrinho"
 
-# configurações para o armazenamento de dados da sacola na session
+# configurações para o armazenamento de dados do carrinho na session
 SESSION_ENGINE = (
     "django.contrib.sessions.backends.db"  # Usa o banco de dados para sessões
 )
-SESSION_COOKIE_AGE = 1209600  # 2 semanas
+# Configurar a expiração do cookie de sessão para um período mais longo (exemplo: 30 dias)
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 dias
 SESSION_SAVE_EVERY_REQUEST = True  # Salva a sessão a cada requisição
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Mantém a sessão ativa após fechar o navegador
 
@@ -145,6 +146,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
+                "core.context_processors.carrinho_context",
             ],
             "libraries": {
                 "templates_tags": "core.templatetags.templates_tags",

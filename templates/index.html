@@ -103,6 +103,7 @@
                     experimentar nossas delícias e adoçar o seu dia!</p>
                 <div>
                     <a href="#menu" class="btn-get-started">Nosso Menu</a>
+
                 </div>
             </div>
         </div>
@@ -114,6 +115,7 @@
                     colherada!.</p>
                 <div>
                     <a href="#menu" class="btn-get-started">Nosso Menu</a>
+
                 </div>
             </div>
         </div>
@@ -125,6 +127,7 @@
                     favoritas!</p>
                 <div>
                     <a href="#menu" class="btn-get-started">Nosso Menu</a>
+
                 </div>
             </div>
         </div>
@@ -310,77 +313,9 @@
                     <div class="text-center"><button type="submit">Enviar Mensagem</button></div>
                 </form>
             </div><!-- End Contact Form -->
-
         </div>
-
     </div>
-
 </section>
 
-<script>
-
-    // Carrega os dados da sacola ao carregar a página
-    document.addEventListener("DOMContentLoaded", function () {
-        const sacolaIconContainer = document.getElementById('sacola-icon-container');
-
-        if (sacolaIconContainer) {
-            sacolaIconContainer.addEventListener('click', function (event) {
-                event.preventDefault(); // Evita o comportamento padrão do link
-                fetch('/pedido/sacola-itens/')
-                    .then(response => response.json())
-                    .then(data => {
-                        // console.log('Dados da sacola recebidos:', data);  // Verifica os dados recebidos
-
-                        // Atualizando a quantidade total de itens
-                        const totalItens = data.total_itens || 0;
-
-                        const sacolaIconContainer = document.getElementById('sacola-icon-container');
-                        if (sacolaIconContainer) {
-                            sacolaIconContainer.addEventListener('click', function () {
-                                const sidebar = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'));
-                                sidebar.show();  // Mostra o sidebar
-                            });
-                        } else {
-                            console.error('Elemento sacola-icon-container não encontrado');
-                        }
-
-                        // Atualizando o total acumulado
-                        const totalAcumulado = data.total_acumulado || '0.00';
-                        const sacola = data.sacola;
-
-                        // Verifica se há itens na sacola
-                        if (sacola.length > 0) {
-                            const itensHtml = sacola.map(item => `
-                                <li class="list-group-item d-flex flex-column lh-sm px-2 mb-2">
-                                    <h5 class="my-0"><strong>${item.nome}</strong></h5>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-muted">Quantidade: ${item.quantidade}</small>
-                                        <span class="text-muted">R$ ${parseFloat(item.total).toFixed(2)}</span>
-                                    </div>
-                                </li>
-
-                        `).join('');
-
-                            // Insere os itens no HTML
-                            document.querySelector('#itens-sacola').innerHTML = itensHtml;
-                            document.querySelector('#tot_items').innerHTML = totalItens;
-                            document.querySelector('#tot_acumulado').innerHTML = `R$ ${totalAcumulado}`;
-                        } else {
-                            // Mostra mensagem de sacola vazia
-                            document.querySelector('#itens-sacola').innerHTML = '<p class="text-center">Sacola vazia, escolha um produto</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erro ao carregar sacola:', error);
-                    })
-
-                    .catch(error => console.error('Erro:', error));  // Trata qualquer erro
-            });
-        } else {
-            console.error('Elemento sacola-icon-container não encontrado');
-        }
-    });
-
-</script>
 
 {% endblock %}

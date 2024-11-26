@@ -34,121 +34,121 @@ def menu(request):
     return render(request, "menu.html", context)
 
 
-# Adicionar itens no carrinho
-@login_required(login_url="/admin/login/")
-def adicionar_carrinho(request):
-    # se request.user pertencer a algum grupo (nível de acesso)
-    if request.user.groups.exists():
-        cliente_id = request.GET.get("cliente_id")
+# # Adicionar itens no carrinho
+# @login_required(login_url="/admin/login/")
+# def adicionar_carrinho(request):
+#     # se request.user pertencer a algum grupo (nível de acesso)
+#     if request.user.groups.exists():
+#         cliente_id = request.GET.get("cliente_id")
 
-        if cliente_id:
-            cliente = Cliente.objects.get(id=cliente_id)
-            print("Cliente selecionado:", cliente)
-        else:
-            cliente = request.user
-            print("Cliente padrão:", cliente)
-    else:
-        cliente = request.user
+#         if cliente_id:
+#             cliente = Cliente.objects.get(id=cliente_id)
+#             print("Cliente selecionado:", cliente)
+#         else:
+#             cliente = request.user
+#             print("Cliente padrão:", cliente)
+#     else:
+#         cliente = request.user
 
-    # Sua lógica para adicionar ao carrinho aqui
-    return render(request, "carrinho.html", {"cliente": cliente})
+#     # Sua lógica para adicionar ao carrinho aqui
+#     return render(request, "carrinho.html", {"cliente": cliente})
 
-    # if request.method == "POST":
-    #     produto_id = request.POST.get("produto_id")
-    #     produto = Produto.objects.get(id=produto_id)
-    #     ultimo_pedido = Pedido.objects.filter(
-    #         user=cliente, pago=False, entregue=False
-    #     ).last()
+#     # if request.method == "POST":
+#     #     produto_id = request.POST.get("produto_id")
+#     #     produto = Produto.objects.get(id=produto_id)
+#     #     ultimo_pedido = Pedido.objects.filter(
+#     #         user=cliente, pago=False, entregue=False
+#     #     ).last()
 
-    #     # Data de hoje
-    #     # hoje = datetime.today().date()
-    #     hoje = datetime.now().date()
+#     #     # Data de hoje
+#     #     # hoje = datetime.today().date()
+#     #     hoje = datetime.now().date()
 
-    #     if ultimo_pedido != None:
-    #         # verifica se o pedido foi realizado hoje
-    #         ultimo_pedido_data = ultimo_pedido.data_pedido.date()
+#     #     if ultimo_pedido != None:
+#     #         # verifica se o pedido foi realizado hoje
+#     #         ultimo_pedido_data = ultimo_pedido.data_pedido.date()
 
-    #         if ultimo_pedido_data == hoje:
-    #             # verifica há itens neste pedido e se este item já foi selecionado para este pedido
-    #             if (
-    #                 ItensCarrinho.objects.filter(pedido=ultimo_pedido.id).exists()
-    #                 and not ItensCarrinho.objects.filter(
-    #                     pedido=ultimo_pedido.id, produto=produto
-    #                 ).exists()
-    #             ):
-    #                 ItensCarrinho.objects.create(pedido=ultimo_pedido, produto=produto)
-    #                 # atualiza data/hora do pedido
-    #                 ultimo_pedido.data_pedido = datetime.now()
-    #                 ultimo_pedido.save()
+#     #         if ultimo_pedido_data == hoje:
+#     #             # verifica há itens neste pedido e se este item já foi selecionado para este pedido
+#     #             if (
+#     #                 ItensCarrinho.objects.filter(pedido=ultimo_pedido.id).exists()
+#     #                 and not ItensCarrinho.objects.filter(
+#     #                     pedido=ultimo_pedido.id, produto=produto
+#     #                 ).exists()
+#     #             ):
+#     #                 ItensCarrinho.objects.create(pedido=ultimo_pedido, produto=produto)
+#     #                 # atualiza data/hora do pedido
+#     #                 ultimo_pedido.data_pedido = datetime.now()
+#     #                 ultimo_pedido.save()
 
-    #         else:
-    #             # cria um novo pedido e o item relacionado ao novo pedido
-    #             novo_pedido = Pedido.objects.create(
-    #                 user=cliente,
-    #             )
-    #             ItensCarrinho.objects.create(pedido=novo_pedido, produto=produto)
-    #     else:
-    #         # cria um novo pedido e o item relacionado ao novo pedido
-    #         novo_pedido = Pedido.objects.create(
-    #             user=cliente,
-    #         )
-    #         ItensCarrinho.objects.create(pedido=novo_pedido, produto=produto)
+#     #         else:
+#     #             # cria um novo pedido e o item relacionado ao novo pedido
+#     #             novo_pedido = Pedido.objects.create(
+#     #                 user=cliente,
+#     #             )
+#     #             ItensCarrinho.objects.create(pedido=novo_pedido, produto=produto)
+#     #     else:
+#     #         # cria um novo pedido e o item relacionado ao novo pedido
+#     #         novo_pedido = Pedido.objects.create(
+#     #             user=cliente,
+#     #         )
+#     #         ItensCarrinho.objects.create(pedido=novo_pedido, produto=produto)
 
-    return redirect("/menu/")
+#     return redirect("/menu/")
 
-    # try:
-    #     dados_str = request.POST.get("dados", None)
-    #     dados = json.loads(dados_str)
+#     # try:
+#     #     dados_str = request.POST.get("dados", None)
+#     #     dados = json.loads(dados_str)
 
-    #     embalagem_id = dados.get("embalagem_id", None)
-    #     quantidade_pote = int(dados.get("quantidade_pote", None))
+#     #     embalagem_id = dados.get("embalagem_id", None)
+#     #     quantidade_pote = int(dados.get("quantidade_pote", None))
 
-    #     # Tente obter a sacola existente do usuário
-    #     pedido = Pedido.objects.create(user=request.user, status=True).first()
+#     #     # Tente obter a sacola existente do usuário
+#     #     pedido = Pedido.objects.create(user=request.user, status=True).first()
 
-    #     # Se não existir uma sacola, crie uma nova
-    #     if not pedido:
-    #         # Crie um novo pedido e associe a sacola criada
-    #         pedido = Pedido.objects.create(
-    #             user=request.user,
-    #             status=True,
-    #             itens_da_sacola=ItensCarrinho.objects.create(),
-    #         )
-    #     # monta_pote = MontaPote.objects.create(
-    #     #     embalagem_id=embalagem_id, quantidade=quantidade_pote
-    #     # )
-    #     itens_carrinho = ItensCarrinho.objects.create(
-    #         pedido=pedido, produto=produto, quantidade=quantidade, preco=preco
-    #     )
-    #     itens_carrinho.save()
+#     #     # Se não existir uma sacola, crie uma nova
+#     #     if not pedido:
+#     #         # Crie um novo pedido e associe a sacola criada
+#     #         pedido = Pedido.objects.create(
+#     #             user=request.user,
+#     #             status=True,
+#     #             itens_da_sacola=ItensCarrinho.objects.create(),
+#     #         )
+#     #     # monta_pote = MontaPote.objects.create(
+#     #     #     embalagem_id=embalagem_id, quantidade=quantidade_pote
+#     #     # )
+#     #     itens_carrinho = ItensCarrinho.objects.create(
+#     #         pedido=pedido, produto=produto, quantidade=quantidade, preco=preco
+#     #     )
+#     #     itens_carrinho.save()
 
-    #     # for sabor in dados["sabores_selecionados"]:
-    #     #     # Adicione os sabore ao pote durante a criação
-    #     #     SelSabor.objects.create(
-    #     #         pote=monta_pote,
-    #     #         sabor_id=sabor["sabor_id"],
-    #     #         quantidade_bolas=sabor["quantidade"],
-    #     #     )
+#     #     # for sabor in dados["sabores_selecionados"]:
+#     #     #     # Adicione os sabore ao pote durante a criação
+#     #     #     SelSabor.objects.create(
+#     #     #         pote=monta_pote,
+#     #     #         sabor_id=sabor["sabor_id"],
+#     #     #         quantidade_bolas=sabor["quantidade"],
+#     #     #     )
 
-    #     # for cobertura in dados["cobertura_selecionadas"]:
-    #     #     # Adicione as coberturas ao pote durante a criação
-    #     #     SelCobertura.objects.create(
-    #     #         pote=monta_pote,
-    #     #         cobertura_id=cobertura["cobertura_id"],
-    #     #         quantidade_cobertura=cobertura["quantidade"],
-    #     #     )
-    #     pedido.itens_da_sacola.potes.add(monta_pote)
-    #     pedido.itens_da_sacola.preco_total()
+#     #     # for cobertura in dados["cobertura_selecionadas"]:
+#     #     #     # Adicione as coberturas ao pote durante a criação
+#     #     #     SelCobertura.objects.create(
+#     #     #         pote=monta_pote,
+#     #     #         cobertura_id=cobertura["cobertura_id"],
+#     #     #         quantidade_cobertura=cobertura["quantidade"],
+#     #     #     )
+#     #     pedido.itens_da_sacola.potes.add(monta_pote)
+#     #     pedido.itens_da_sacola.preco_total()
 
-    #     return JsonResponse(
-    #         {
-    #             "status": "success",
-    #             "message": "Item adicionado na sacola com sucesso!!!",
-    #         }
-    #     )
-    # except Exception as e:
-    #     return JsonResponse({"status": "error", "message": str(e)})
-    return JsonResponse({"status": "error", "message": "Requisição inválida."})
+#     #     return JsonResponse(
+#     #         {
+#     #             "status": "success",
+#     #             "message": "Item adicionado na sacola com sucesso!!!",
+#     #         }
+#     #     )
+#     # except Exception as e:
+#     #     return JsonResponse({"status": "error", "message": str(e)})
+#     return JsonResponse({"status": "error", "message": "Requisição inválida."})
 
 
 # @login_required(login_url="/admin/login/")

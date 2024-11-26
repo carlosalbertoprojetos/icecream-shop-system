@@ -103,3 +103,21 @@ input:disabled {
     color: gray;
     width: 290px;
 }
+
+.custom-card {
+    background-image: url('/static/assets/img/fundomenu.png');
+    background-size: cover;
+    /* Ajusta a imagem para cobrir todo o card */
+    background-position: center;
+    /* Centraliza a imagem */
+    background-repeat: no-repeat;
+    /* Impede que a imagem se repita */
+    width: 300px;
+    /* Define a largura do card (ajuste conforme necessário) */
+    height: 200px;
+    /* Define a altura do card */
+    border-radius: 8px;
+    /* Bordas arredondadas, se desejar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adiciona uma sombra ao card */
+}

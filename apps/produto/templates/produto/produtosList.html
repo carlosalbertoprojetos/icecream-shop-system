@@ -1,0 +1,62 @@
+<!-- templates/listar_produtos.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="hero" class="section dark-background">
+    <div class="card custom-card">
+        <!-- <img src="/static/assets/img/fundomenu.png" alt=""> -->
+        <div class="card-body">
+            <div class="card-title">
+                <h1>Produtos</h1>
+            </div>
+            <div class="row">
+                {% for produto in produtos %}
+                <div class="col-md-3 bg-white">
+                    <div class="card mb-2">
+                        <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="card-img-top" />
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">{{ produto.base }}</h5>R$ {{ produto.preco }}
+                            </div>
+                            <p class="card-text">{{ produto.descricao|default:'' }}</p>
+                            <div class="text-center">
+                                <button class="btn btn-success btn-sm" onclick="adicionarItem({{ produto.id }})">
+                                    Adicionar ao Carrinho
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function adicionarItem(produtoId) {
+        fetch(`/pedido/carrinho/adicionar/${produtoId}/`, {
+            method: 'GET',  // Ou POST, dependendo da sua rota
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Atualizar a quantidade de itens no carrinho
+                document.getElementById('sacola-count').textContent = data.quantidade_total;
+
+                // Opcional: Atualizar o carrinho no frontend, se necessário
+                console.log(data.carrinho); // Aqui você pode processar o carrinho, se necessário
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar item ao carrinho:', error);
+            });
+    }
+
+</script>
+
+
+{% endblock %}

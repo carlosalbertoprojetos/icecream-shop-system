@@ -26,42 +26,10 @@
                 <div class="menu-ingredients">
                     {{ item.base.embalagem }}
                 </div>
-                <div class="text-end">
-                    <button class="btn btn-primary btn-sm add-to-cart" onclick="adicionarItem({{ item.id }})">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-success btn-sm" onclick="adicionarItem({{ item.id }})">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
+                <div class="text-end"><button class="btn btn-primary btn-sm add-to-cart"
+                        data-item-id="{{ item.id }}">Adicionar à Sacola</button></div>
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
-
-<script>
-
-    function adicionarItem(produtoId) {
-        fetch(`/pedido/carrinho/adicionar/${produtoId}/`, {
-            method: 'GET',  // Ou POST, dependendo da sua rota
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Atualizar a quantidade de itens no carrinho
-                document.getElementById('sacola-count').textContent = data.quantidade_total;
-
-                // Opcional: Atualizar o carrinho no frontend, se necessário
-                console.log(data.carrinho); // Aqui você pode processar o carrinho, se necessário
-            })
-            .catch(error => {
-                console.error('Erro ao adicionar item ao carrinho:', error);
-            });
-    }
-
-</script>

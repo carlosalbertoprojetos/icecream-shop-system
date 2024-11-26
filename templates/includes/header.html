@@ -27,12 +27,12 @@
                     style="display: none;"></span>
             </div> -->
             <div class="sacola-icon position-relative fs-6 me-3 me-lg-0" id="sacola-icon-container">
-                <a href="#">
-                    <i id="sacola-icon" class="bi bi-bag"></i>
+                <a href="{% url 'pedido:listar_carrinho' %}">
+                    <i id="sacola-icon" class="bi bi-bag fs-5 me-1"></i>
                     <span id="sacola-count"
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger ms-1 mt-1"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger mt-2"
                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">
-                        0
+                        {{ quantidade_carrinho|default:0 }}
                     </span>
                 </a>
             </div>
@@ -80,15 +80,27 @@
     </div>
 </header>
 
-<script>document.addEventListener("DOMContentLoaded", function () {
-        // Aqui você pode garantir que o código seja executado após a renderização da página
-        const buttons = document.querySelectorAll("button[type='submit']");
+<script>
 
-        buttons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                // Manipula o clique do botão
-                console.log("Botão de remover foi clicado");
-            });
-        });
+    document.addEventListener("DOMContentLoaded", () => {
+        const sacolaCount = document.getElementById('sacola-count');
+        const sacolaIcone = document.getElementById('sacola-icon');
+
+        // Transforma o valor de innerText para inteiro
+        const totalItensInt = parseInt(sacolaCount.innerText, 10);
+
+        // Condicional para console.log
+        if (totalItensInt > 0) {
+            sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
+        } else {
+            sacolaIcone.className = 'bi bi-bag fs-5 me-1';
+        }
+
+
+
+        // sacolaCount.innerText = totalItens || '';  // Evita exibir "0" se não houver itens
+
+        // localStorage.setItem('totalItensCarrinho', totalItens);
     });
+
 </script>

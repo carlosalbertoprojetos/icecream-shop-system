@@ -12,6 +12,12 @@ def context_sacola(request):
     return
 
 
+def carrinho_context(request):
+    carrinho = request.session.get("carrinho", {})
+    quantidade_total = sum(item["quantidade"] for item in carrinho.values())
+    return {"quantidade_carrinho": quantidade_total}
+
+
 #     if request.user.is_authenticated:
 #         # Recupere o pedido do usuário com status True (Ativo)
 #         pedidos = Pedido.objects.filter(user=request.user)
