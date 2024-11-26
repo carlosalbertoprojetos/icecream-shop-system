@@ -1,11 +1,35 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.utils.timezone import now
 
 
-from apps.base.models import Entregador
 from apps.produto.models import Produto
+
+
+class Entregador(models.Model):
+    nome = models.CharField(max_length=10)
+    telefone = models.CharField(max_length=14, null=True, blank=True)
+    vaiculo = models.CharField(max_length=50, null=True, blank=True)
+    nome = models.CharField(max_length=10, unique=True)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Adm - Formas de Pagamento"
+        verbose_name_plural = "Adm - Formas de Pagamento"
+
+    def __str__(self):
+        return self.nome
+
+    placa = models.CharField(max_length=7, null=True, blank=True)
+    data_cadastro = models.DateField(default=now)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Adm - Entregador"
+        verbose_name_plural = "Adm - Entregador"
+
+    def __str__(self):
+        return self.nome
 
 
 class FormaPagamento(models.Model):

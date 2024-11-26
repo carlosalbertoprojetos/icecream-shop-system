@@ -1,12 +1,8 @@
 from django import template
-from datetime import date, datetime
-from django.db.models import Max
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
 
 
 from apps.produto.models import Produto
-from apps.pedido.views import get_sacola, get_total_itens, calcular_totais
+
 
 register = template.Library()
 
@@ -24,34 +20,34 @@ def show_menu(context):
     return context
 
 
-@register.inclusion_tag("includes/wallet.html", takes_context=True)
-def show_wallet(context):
-    request = context["request"]
-    sacola = get_sacola(request)
-    sacola, total_geral = calcular_totais(sacola)
-    total_itens = get_total_itens(sacola)
+# @register.inclusion_tag("includes/wallet.html", takes_context=True)
+# def show_wallet(context):
+#     request = context["request"]
+#     sacola = get_sacola(request)
+#     sacola, total_geral = calcular_totais(sacola)
+#     total_itens = get_total_itens(sacola)
 
-    # Calcula os itens detalhados e o total acumulado
-    itens_detalhados = []
-    total_acumulado = 0
+#     # Calcula os itens detalhados e o total acumulado
+#     itens_detalhados = []
+#     total_acumulado = 0
 
-    for item in sacola:
-        produto = Produto.objects.get(id=item["id"])
-        quantidade = item["quantidade"]
-        total_item = quantidade * produto.preco
-        total_acumulado += total_item
+#     for item in sacola:
+#         produto = Produto.objects.get(id=item["id"])
+#         quantidade = item["quantidade"]
+#         total_item = quantidade * produto.preco
+#         total_acumulado += total_item
 
-        itens_detalhados.append(
-            {
-                "nome": produto.sabor,
-                "quantidade": quantidade,
-                "preco_unitario": produto.preco,
-                "total": total_item,
-            }
-        )
+#         itens_detalhados.append(
+#             {
+#                 "nome": produto.sabor,
+#                 "quantidade": quantidade,
+#                 "preco_unitario": produto.preco,
+#                 "total": total_item,
+#             }
+#         )
 
-    context = {"sacola": sacola, "total_itens": total_itens, "total_geral": total_geral}
-    return context
+#     context = {"sacola": sacola, "total_itens": total_itens, "total_geral": total_geral}
+#     return context
 
 
 # @register.inclusion_tag("includes/abordagem.html")
