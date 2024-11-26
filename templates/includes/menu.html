@@ -20,22 +20,23 @@
             {% for item in itens %}
             <div class="col-lg-6 menu-item isotope-item filter-{{ item.base.embalagem.id }}">
                 <img src="{{ item.imagem.url }}" class="menu-img" alt="{{ item.base.tipo }} {{ item.sabor }}">
-                <div class="menu-content">
-                    <a href="#">{{ item.base.tipo }} {{ item.sabor }}</a><span>R$ {{ item.preco }}</span>
+                <div class="menu-content titulo_produto">
+                    <a href="#" class="mb-0">{{ item.base.tipo }} {{ item.sabor }}</a><span>R$ {{ item.preco }}</span>
                 </div>
-                <div class="menu-ingredients">
-                    {{ item.base.embalagem }}
-                </div>
-                <div class="text-end">
-                    <button class="btn btn-primary btn-sm add-to-cart" onclick="adicionarItem({{ item.id }})">
+                <div class="d-flex justify-content-between">
+                    <div class="menu-ingredients text-start px-2">
+                        {{ item.base.embalagem }}
+                    </div>
+                    <button class="btn btn-sm add-to-cart" style="background-color:#ffb03b; color:white;"
+                        onclick="adicionarItem({{ item.id }})">
                         Adicionar ao Carrinho
                     </button>
                 </div>
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <button class="btn btn-success btn-sm" onclick="adicionarItem({{ item.id }})">
                         Adicionar ao Carrinho
                     </button>
-                </div>
+                </div> -->
             </div>
             {% endfor %}
         </div>

@@ -121,3 +121,17 @@ input:disabled {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     /* Adiciona uma sombra ao card */
 }
+
+
+.titulo_produto a {
+    color: color-mix(in srgb, var(--default-color), transparent 30%);
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 12px 10px 12px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 1;
+    transition: all ease-in-out 0.3s;
+    font-family: var(--heading-font);
+}
