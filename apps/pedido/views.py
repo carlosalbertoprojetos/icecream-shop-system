@@ -37,12 +37,14 @@ def adicionar_item(request, produto_id):
         item["total"] = item["preco"] * item["quantidade"]
 
     # Calcula a quantidade total de itens no carrinho
-    quantidade_total = sum(item["quantidade"] for item in carrinho.values())
+    quantidade_total = calcular_quantidade_carrinho(carrinho)
 
-    calcular_quantidade_carrinho(carrinho)
+    # calcular_quantidade_carrinho(carrinho)
 
     # Salva o carrinho na sessão
     request.session["carrinho"] = carrinho
+
+    listar_carrinho(request)
 
     # Retorna a resposta JSON com o carrinho atualizado e a quantidade total
     return JsonResponse(
@@ -69,14 +71,30 @@ def remover_item(request, produto_id):
     return redirect("pedido:listar_carrinho")
 
 
+# def listar_carrinho(request):
+#     carrinho = request.session.get("carrinho", {})
+#     # Calcula o total do pedido somando os valores totais dos itens
+#     total_pedido = sum(item["total"] for item in carrinho.values())
+
+
+#     # Retorna o carrinho e o total do pedido como contexto para o template
+#     context = {
+#         "carrinho": carrinho,
+#         "total_pedido": total_pedido,
+#     }
+#     return render(request, "pedido/carrinho.html", context)
+
+
 def listar_carrinho(request):
     carrinho = request.session.get("carrinho", {})
+
     # Calcula o total do pedido somando os valores totais dos itens
     total_pedido = sum(item["total"] for item in carrinho.values())
 
-    # Retorna o carrinho e o total do pedido como contexto para o template
-    context = {
-        "carrinho": carrinho,
-        "total_pedido": total_pedido,
-    }
-    return render(request, "pedido/carrinho.html", context)
+    # Retorna a resposta JSON com o carrinho atualizado e a quantidade total
+    return JsonResponse(
+        {
+            "carrinho": carrinho,
+            "total_pedido": total_pedido,
+        }
+    )

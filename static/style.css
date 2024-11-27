@@ -87,7 +87,8 @@ input:disabled {
 
 /* Menu */
 .offcanvas.offcanvas-end {
-    width: 550px;
+    /* width: 550px; */
+    width: 450px;
 }
 
 .list-group-item {
@@ -135,4 +136,16 @@ input:disabled {
     line-height: 1;
     transition: all ease-in-out 0.3s;
     font-family: var(--heading-font);
+}
+
+.text_menu {
+    font-size: 1.3rem;
+}
+
+.text_menu td {
+    font-family: 'Satisfy', sans-serif;
+}
+
+.text_menu th {
+    color: gray;
 }

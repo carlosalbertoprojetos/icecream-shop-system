@@ -20,11 +20,11 @@
             {% for item in itens %}
             <div class="col-lg-6 menu-item isotope-item filter-{{ item.base.embalagem.id }}">
                 <img src="{{ item.imagem.url }}" class="menu-img" alt="{{ item.base.tipo }} {{ item.sabor }}">
-                <div class="menu-content titulo_produto fs-3">
-                    <a href="#">{{ item.base.tipo }} {{ item.sabor }}</a><span>R$ {{ item.preco }}</span>
+                <div class="menu-content titulo_produto">
+                    <a href="#" class="mb-0">{{ item.base.tipo }} {{ item.sabor }}</a><span>R$ {{ item.preco }}</span>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="menu-ingredients text-start">
+                    <div class="menu-ingredients text-start px-2">
                         {{ item.base.embalagem }}
                     </div>
                     <button class="btn btn-sm add-to-cart" style="background-color:#ffb03b; color:white;"
@@ -32,6 +32,11 @@
                         Adicionar ao Carrinho
                     </button>
                 </div>
+                <!-- <div class="text-center">
+                    <button class="btn btn-success btn-sm" onclick="adicionarItem({{ item.id }})">
+                        Adicionar ao Carrinho
+                    </button>
+                </div> -->
             </div>
             {% endfor %}
         </div>
@@ -42,7 +47,7 @@
 
     function adicionarItem(produtoId) {
         fetch(`/pedido/carrinho/adicionar/${produtoId}/`, {
-            method: 'GET',  // Ou POST, dependendo da sua rota
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -51,9 +56,9 @@
             .then(data => {
                 // Atualizar a quantidade de itens no carrinho
                 document.getElementById('sacola-count').textContent = data.quantidade_total;
-
-                // Opcional: Atualizar o carrinho no frontend, se necessário
-                console.log(data.carrinho); // Aqui você pode processar o carrinho, se necessário
+                let sacolaIcone = document.getElementById('sacola-icon');
+                sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
+                $('#sem_produto').addClass('hidden');
             })
             .catch(error => {
                 console.error('Erro ao adicionar item ao carrinho:', error);
