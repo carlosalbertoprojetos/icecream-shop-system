@@ -26,10 +26,13 @@ def adicionar_item(request, produto_id):
     if str(produto_id) in carrinho:
         carrinho[str(produto_id)]["quantidade"] += 1
     else:
+        # quant = carrinho[str(produto_id)]["quantidade"]
+        quant = 1
         carrinho[str(produto_id)] = {
             "nome": str(produto.base),
             "preco": float(produto.preco),
-            "quantidade": 1,
+            "quantidade": quant,
+            "total": quant * produto.preco,
         }
 
     # Atualiza o total de cada item no carrinho
