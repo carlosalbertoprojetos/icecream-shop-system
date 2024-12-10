@@ -15,7 +15,7 @@ def calcular_quantidade_carrinho(carrinho):
     return sum(item["quantidade"] for item in carrinho.values())
 
 
-def adicionar_item(request, produto_id):
+def adicionarItem(request, produto_id):
     # Obtém o carrinho da sessão, ou inicializa como vazio
     carrinho = request.session.get("carrinho", {})
 
@@ -29,6 +29,7 @@ def adicionar_item(request, produto_id):
         # quant = carrinho[str(produto_id)]["quantidade"]
         quant = 1
         carrinho[str(produto_id)] = {
+            "id_prod": produto.id,
             "nome": str(produto.base),
             "preco": float(produto.preco),
             "quantidade": quant,
@@ -47,7 +48,34 @@ def adicionar_item(request, produto_id):
     # Salva o carrinho na sessão
     request.session["carrinho"] = carrinho
 
-    listar_carrinho(request)
+    # Retorna a resposta JSON com o carrinho atualizado e a quantidade total
+    return JsonResponse(
+        {
+            "quantidade_total": quantidade_total,
+            "carrinho": carrinho,
+        }
+    )
+
+
+def tirarItem(request, produto_id):
+    # Obtém o carrinho da sessão, ou inicializa como vazio
+    carrinho = request.session.get("carrinho", {})
+
+    # Adiciona ou incrementa a quantidade do produto no carrinho
+    if str(produto_id) in carrinho:
+        carrinho[str(produto_id)]["quantidade"] -= 1
+
+    # Atualiza o total de cada item no carrinho
+    for key, item in carrinho.items():
+        item["total"] = item["preco"] * item["quantidade"]
+
+    # Calcula a quantidade total de itens no carrinho
+    quantidade_total = calcular_quantidade_carrinho(carrinho)
+
+    # calcular_quantidade_carrinho(carrinho)
+
+    # Salva o carrinho na sessão
+    request.session["carrinho"] = carrinho
 
     # Retorna a resposta JSON com o carrinho atualizado e a quantidade total
     return JsonResponse(
@@ -58,7 +86,7 @@ def adicionar_item(request, produto_id):
     )
 
 
-def remover_item(request, produto_id):
+def removerItem(request, produto_id):
     # Obtém o carrinho da sessão
     carrinho = request.session.get("carrinho", {})
 

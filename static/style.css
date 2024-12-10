@@ -139,7 +139,7 @@ input:disabled {
 }
 
 .text_menu {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .text_menu td {
@@ -148,4 +148,11 @@ input:disabled {
 
 .text_menu th {
     color: gray;
+}
+
+
+@media (max-width: 576px) {
+    .text-sm {
+        font-size: 12px;
+    }
 }

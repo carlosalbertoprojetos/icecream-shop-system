@@ -30,10 +30,10 @@
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero" class="active">Home</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#gallery">Galeria</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="/#hero" class="active">Home</a></li>
+                    <li><a href="/#menu">Menu</a></li>
+                    <li><a href="/#gallery">Galeria</a></li>
+                    <li><a href="/#contact">Contato</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -42,24 +42,23 @@
 </header>
 
 <script>
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     const sacolaCount = document.getElementById('sacola-count');
+    //     const sacolaIcone = document.getElementById('sacola-icon');
+    //     const carrinhoLink = document.querySelector(`a[href="{% url 'pedido:listar_carrinho'%}"]`);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const sacolaCount = document.getElementById('sacola-count');
-        const sacolaIcone = document.getElementById('sacola-icon');
-        const carrinhoLink = document.querySelector(`a[href="{% url 'pedido:listar_carrinho'%}"]`);
+    //     // Transforma o valor de innerText para inteiro
+    //     const totalItensInt = parseInt(sacolaCount.innerText, 10);
 
-        // Transforma o valor de innerText para inteiro
-        const totalItensInt = parseInt(sacolaCount.innerText, 10);
+    //     // Condicional para console.log
+    //     if (totalItensInt > 0) {
+    //         sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
 
-        // Condicional para console.log
-        if (totalItensInt > 0) {
-            sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
+    //     } else {
 
-        } else {
-
-            sacolaIcone.className = 'bi bi-bag fs-5 me-1';
-        }
-    });
+    //         sacolaIcone.className = 'bi bi-bag fs-5 me-1';
+    //     }
+    // });
 
 
     // document.getElementById('abrirSacola').addEventListener('click', function (event) {

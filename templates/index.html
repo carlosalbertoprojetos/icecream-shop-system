@@ -16,21 +16,16 @@
         <div class="text-center bg-light bg-gradient pt-2">
             <h1 class="mb-0">Sacola de Compras</h1>
         </div>
-
-        <!-- <h4 class="d-flex justify-content-center align-items-center bg-light bg-gradient p-3 mb-0" id="sem_produto">
-            <span class="text-primary">Escolha um Produto</span>
-        </h4> -->
-
-
         <div id="sacola-conteudo">
             <div class="table-responsive">
-                <table class="table" id="itens-sacola">
+                <table class="table table-sm" id="itens-sacola">
                     <thead>
-                        <tr>
+                        <tr class="table-sm">
                             <th>Nome</th>
                             <th>Quant.</th>
                             <th>Preço</th>
                             <th>Total</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
                     <tbody id="tabela-itens">
@@ -46,7 +41,7 @@
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn w-100" style="background-color:#ffb03b; color:white;">
                     <a href="{% url 'pedido:checkout_pedido' %}" class=" link-light text-decoration-none">
-                        Finalizar Pedido
+                        Concluir Pedido
                     </a>
                 </button>
             </div>
@@ -279,7 +274,48 @@
     </div>
 </section>
 
-<!-- <script>
+<script src="{% static 'assets/js/carrinho.js' %}"></script>
+<!-- 
+<script>
+    function adicionarItem(produtoId) {
+        fetch(`/pedido/carrinho/adicionar/${produtoId}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Atualizar a quantidade de itens no carrinho
+                document.getElementById('sacola-count').textContent = data.quantidade_total;
+                let sacolaIcone = document.getElementById('sacola-icon');
+                sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
+                atualizarCarrinho()
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar item ao carrinho:', error);
+            });
+    }
+
+    function removerItem(produtoId) {
+        fetch(`/pedido/carrinho/remover/${produtoId}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Atualizar a quantidade de itens no carrinho
+                document.getElementById('sacola-count').textContent = data.quantidade_total;
+                let sacolaIcone = document.getElementById('sacola-icon');
+                sacolaIcone.className = 'bi-bag-fill fs-5 me-1';
+                atualizarCarrinho()
+            })
+            .catch(error => {
+                console.error('Erro ao remover item ao carrinho:', error);
+            });
+    }
 
     function atualizarCarrinho() {
         fetch('/pedido/carrinho/')
@@ -301,13 +337,21 @@
                     totalItens += item.quantidade;
 
                     const row = `
-                    <tr class="text_menu">
-                        <td>${item.nome}</td>
-                        <td>${item.quantidade}</td>
-                        <td>R$ ${item.preco.toFixed(2)}</td>
-                        <td>R$ ${item.total.toFixed(2)}</td>
-                    </tr>
-                `;
+                <tr class="text_menu">
+                    <td>${item.nome}</td>
+                    <td>
+                        <a href="#" class="fs-3 pe-2" onclick="removerItem(${item.id_prod})">
+                                -
+                        </a>
+                        ${item.quantidade}
+                        <a href="#" class="fs-3 ps-2" onclick="adicionarItem(${item.id_prod})">
+                                +
+                        </a>
+                    </td>
+                    <td>R$ ${item.preco.toFixed(2)}</td>
+                    <td>R$ ${item.total.toFixed(2)}</td>
+                </tr>
+            `;
                     tabelaItens.insertAdjacentHTML("beforeend", row);
                 }
 
@@ -322,8 +366,8 @@
 
     // Chama a função para atualizar o carrinho ao carregar a página
     document.addEventListener("DOMContentLoaded", atualizarCarrinho);
-
-
 </script> -->
+
+
 
 {% endblock %}

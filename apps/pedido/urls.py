@@ -6,8 +6,7 @@ app_name = "pedido"
 urlpatterns = [
     path("checkout/", v.checkout, name="checkout_pedido"),
     path("carrinho/", v.listar_carrinho, name="listar_carrinho"),
-    path(
-        "carrinho/adicionar/<int:produto_id>/", v.adicionar_item, name="adicionar_item"
-    ),
-    path("carrinho/remover/<int:produto_id>/", v.remover_item, name="remover_item"),
+    path("carrinho/adicionar/<int:produto_id>/", v.adicionarItem, name="adicionarItem"),
+    path("carrinho/tirar/<int:produto_id>/", v.tirarItem, name="tirarItem"),
+    path("carrinho/remover/<int:produto_id>/", v.removerItem, name="removerItem"),
 ]

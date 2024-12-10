@@ -55,9 +55,8 @@
         </div>
     </div>
 </section>
-
+<!-- 
 <script>
-
     function adicionarItem(produtoId) {
         fetch(`/pedido/carrinho/adicionar/${produtoId}/`, {
             method: 'GET',
@@ -101,7 +100,15 @@
                     const row = `
                 <tr class="text_menu">
                     <td>${item.nome}</td>
-                    <td>${item.quantidade}</td>
+                    <td>
+                        <a href="#" class="fs-3 pe-2" onclick="removerItem(${item.id_prod})">
+                                -
+                        </a>
+                        ${item.quantidade}
+                        <a href="#" class="fs-3 ps-2" onclick="adicionarItem(${item.id})">
+                                +
+                        </a>
+                    </td>
                     <td>R$ ${item.preco.toFixed(2)}</td>
                     <td>R$ ${item.total.toFixed(2)}</td>
                 </tr>
@@ -120,6 +127,4 @@
 
     // Chama a função para atualizar o carrinho ao carregar a página
     document.addEventListener("DOMContentLoaded", atualizarCarrinho);
-
-
-</script>
+</script> -->

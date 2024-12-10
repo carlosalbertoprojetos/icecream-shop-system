@@ -1,42 +1,91 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Finalizar Pedido {% endblock %}
 
 {% block content %}
 
 <head>
-  <style>
-    .header {
-      background-color: #15110dd9;
-    }
-  </style>
+    <style>
+        .header {
+            background-color: #15110dd9;
+        }
+
+        .textcolor {
+            color: #ffb03b;
+        }
+
+        .bg_color {
+            background-color: #ffb03b;
+        }
+    </style>
 </head>
 
-<section>
-  <div class="container">
-    <h2 class="pb-2 border-bottom">Meu Pedido: <span class="text-success fs-bold">N° {{ pedido.id }}</span></h2>
-    <p>Confirmar pedido </p>
-    <p>Ao finalizar enviaremos a confirmação do envio para whatsapp do telefone cadastrado</p>
+<section class="pb-2">
+
+    <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
+        <span class="fs-bold textcolor">
+            N° {{ pedido.id }}</span>
+    </h2>
+    <!-- <p>Confirmar pedido </p>
+        <p>Ao finalizar enviaremos a confirmação do envio para whatsapp do telefone cadastrado</p> -->
     <div class="row">
-      <h4 for="">Itens do Pedido</h4>
-      <div class="col p-2 flex-fill">
-        {% include 'components/lista-itens.html' %}
-      </div>
-      <form class="col-6 p-2 flex-fill" method="post"
-        action="{% if total_itens > 0 %}{% url 'checkout_pedido' %}{% endif %}">
-        {% csrf_token %}
-        <h4 class="">Endereço de Entrega</h4>
-        <div class="d-flex gap-2">
-          <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
-            placeholder="CEP: 00000-000">
-          <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa" maxlength="8"
-            placeholder="Número Casa">
+        <div class="text-center bg-light bg-gradient p-3">
+            <h2 class="mb-0">Itens do Pedido</h2>
         </div>
-        {{ form }}
-        <div class="text-end"><button type="submit" class="btn btn-success btn-sm mt-3">Finalizar Pedido</button></div>
-      </form>
+        <div class="col p-2 flex-fill">
+            <div id="sacola-conteudo">
+                <div class="table-responsive">
+                    <table class="table table-sm text-sm" id="itens-sacola">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quant.</th>
+                                <th>Preço</th>
+                                <th>Total</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-itens">
+                            <!-- Os itens serão adicionados dinamicamente aqui -->
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="m-0">
+
+                <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
+                    <div class="col-12 col-lg-6">
+                        <div class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-end">
+                            <h2 class="d-flex justify-content-end align-items-center w-100">
+                                <span class="textcolor pe-5">Total do Meu Pedido</span>
+                            </h2>
+                            <h2 class="pe-3">
+                                <span class="badge bg_color" id="tot_acumulado">1000,00</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="col-6 p-2 flex-fill" method="post"
+            action="{% if total_itens > 0 %}{% url 'checkout_pedido' %}{% endif %}">
+            {% csrf_token %}
+            <h4 class="">Endereço de Entrega</h4>
+            <div class="d-flex gap-2">
+                <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
+                    placeholder="CEP: 00000-000">
+                <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
+                    maxlength="8" placeholder="Número Casa">
+            </div>
+            {{ form }}
+            <div class="text-end m-2">
+                <button type="submit" class="btn " style="background-color:#ffb03b; color:white;">Finalizar
+                    Pedido</button>
+            </div>
+        </form>
     </div>
-  </div>
 </section>
+
+<script src="{% static 'assets/js/carrinho.js' %}"></script>
 
 {% endblock %}
