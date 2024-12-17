@@ -40,7 +40,7 @@
             </h4>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn w-100" style="background-color:#ffb03b; color:white;">
-                    <a href="{% url 'pedido:checkout_pedido' %}" class=" link-light text-decoration-none">
+                    <a href="{% url 'pedido:checkout' %}" class=" link-light text-decoration-none">
                         Concluir Pedido
                     </a>
                 </button>
@@ -217,7 +217,7 @@
 
                     <div class="info-item d-flex">
                         <i class="bi bi-geo-alt flex-shrink-0"></i>
-                        <div>
+                        <div class="text-start ms-2">
                             <h4>Localização:</h4>
                             <p>Av. Acesita, 573, Olaria - Timóteo/MG</p>
                         </div>
@@ -225,7 +225,7 @@
 
                     <div class="info-item d-flex">
                         <i class="bi bi-envelope flex-shrink-0"></i>
-                        <div>
+                        <div class="text-start ms-2">
                             <h4>Email:</h4>
                             <p>afabrica@exemplo.com.br</p>
                         </div>
@@ -233,7 +233,7 @@
 
                     <div class="info-item d-flex">
                         <i class="bi bi-phone flex-shrink-0"></i>
-                        <div>
+                        <div class="text-start ms-2">
                             <h4>Ligue:</h4>
                             <p>(31) 99578-1020</p>
                         </div>
@@ -367,7 +367,6 @@
     // Chama a função para atualizar o carrinho ao carregar a página
     document.addEventListener("DOMContentLoaded", atualizarCarrinho);
 </script> -->
-
 
 
 {% endblock %}

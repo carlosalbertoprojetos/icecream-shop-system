@@ -1,57 +1,54 @@
 {% load static %}
 
 <section id="menu" class="menu section h-100 mt-5">
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Menu</h2>
-        <div><span>Experimente nossos </span> <span class="description-title">Sabores</span></div>
-    </div>
-    <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <ul class="menu-filters isotope-filters">
-                    <li data-filter="*" class="filter-active">Tudo</li>
-                    {% for emb in embalagens %}
-                    <li data-filter=".filter-{{ emb.base__embalagem__id }}">{{ emb.base__embalagem__nome }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Menu</h2>
+            <div><span>Experimente nossos </span> <span class="description-title">Sabores</span></div>
         </div>
-        <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
-            {% for item in itens %}
-            <div class="col-lg-6 menu-item isotope-item filter-{{ item.base.embalagem.id }}">
-
-
-                <div class="row">
-                    <div class="col-12 col-lg-1 text-center me-4">
-                        <img src="{{ item.imagem.url }}" class="menu-img" alt="{{ item.base.tipo }} {{ item.sabor }}"
-                            width="80" height="80">
-
-                    </div>
-                    <div class="col row ps-4">
-                        <div class="col-lg-12 menu-content titulo_produto ps-0 pe-0 m-0">
-                            <a href="#" class="text-start mb-0">{{ item.base.tipo }} {{ item.sabor }}</a><span
-                                class="align-content-center mb-0">R$ {{ item.preco }}</span>
-                        </div>
-                        <div class="col-lg-12 d-flex justify-content-between">
-                            <div class="menu-ingredients text-start px-2 ms-3">
-                                {{ item.base.embalagem }}
-                            </div>
-                            <button class="btn btn-sm add-to-cart" style="background-color:#ffb03b; color:white;"
-                                onclick="adicionarItem({{ item.id }})">
-                                Adicionar ao Carrinho
-                            </button>
-                        </div>
-                    </div>
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul class="menu-filters isotope-filters">
+                        <li data-filter="*" class="filter-active">Tudo</li>
+                        {% for emb in embalagens %}
+                        <li data-filter=".filter-{{ emb.base__embalagem__id }}">{{ emb.base__embalagem__nome }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-
-
-                <!-- <div class="text-center">
-                    <button class="btn btn-success btn-sm" onclick="adicionarItem({{ item.id }})">
-                        Adicionar ao Carrinho
-                    </button>
-                </div> -->
             </div>
-            {% endfor %}
+            <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+                {% for item in itens %}
+                <div class="col-lg-6 menu-item isotope-item filter-{{ item.base.embalagem.id }}">
+                    <div class="row">
+                        <div class="col-12 col-lg-1 text-center me-4">
+                            <img src="{{ item.imagem.url }}" class="menu-img"
+                                alt="{{ item.base.tipo }} {{ item.sabor }}" width="80" height="80">
+                        </div>
+                        <div class="col row ps-4">
+                            <div class="col-lg-12 menu-content titulo_produto ps-0 pe-0 m-0">
+                                <a href="#" class="text-start mb-0">{{ item.base.tipo }} {{ item.sabor }}</a><span
+                                    class="align-content-center mb-0">R$ {{ item.preco }}</span>
+                            </div>
+                            <div class="col-lg-12 d-flex justify-content-between">
+                                <div class="menu-ingredients text-start px-2 ms-3">
+                                    {{ item.base.embalagem }}
+                                </div>
+                                <button class="btn btn-sm add-to-cart" style="background-color:#ffb03b; color:white;"
+                                    onclick="adicionarItem({{ item.id }})">
+                                    Adicionar ao Carrinho
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="text-center">
+                        <button class="btn btn-success btn-sm" onclick="adicionarItem({{ item.id }})">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div> -->
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>

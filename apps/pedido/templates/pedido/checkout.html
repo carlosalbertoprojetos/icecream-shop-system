@@ -22,67 +22,89 @@
 </head>
 
 <section class="pb-2">
-
-    <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
-        <span class="fs-bold textcolor">
-            N° {{ pedido.id }}</span>
-    </h2>
-    <!-- <p>Confirmar pedido </p>
-        <p>Ao finalizar enviaremos a confirmação do envio para whatsapp do telefone cadastrado</p> -->
-    <div class="row">
-        <div class="text-center bg-light bg-gradient p-3">
-            <h2 class="mb-0">Itens do Pedido</h2>
+    <div class="container">
+        {% if user_authenticated %}
+        <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
+            <span class="fs-bold textcolor">
+                N° {{ pedido.id }}</span>
+        </h2>
+        {% else %}
+        <div class="d-flex justify-content-center border-bottom">
+            <h2 class="fs-bold textcolor px-3 ps-lg-5 mb-0">
+                <span class="fs-bold textcolor">
+                    Confira sua compra</span>
+            </h2>
+            <h5 class="offcanvas-title pt-1" id="sidebarSacolaLabel"> - Total de Itens - <b id="tot_items"></b></h5>
         </div>
-        <div class="col p-2 flex-fill">
-            <div id="sacola-conteudo">
-                <div class="table-responsive">
-                    <table class="table table-sm text-sm" id="itens-sacola">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Quant.</th>
-                                <th>Preço</th>
-                                <th>Total</th>
-                                <th>Excluir</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela-itens">
-                            <!-- Os itens serão adicionados dinamicamente aqui -->
-                        </tbody>
-                    </table>
-                </div>
-                <hr class="m-0">
-
-                <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
-                    <div class="col-12 col-lg-6">
-                        <div class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-end">
-                            <h2 class="d-flex justify-content-end align-items-center w-100">
-                                <span class="textcolor pe-5">Total do Meu Pedido</span>
-                            </h2>
-                            <h2 class="pe-3">
-                                <span class="badge bg_color" id="tot_acumulado">1000,00</span>
-                            </h2>
+        {% endif %}
+        <!-- <p>Confirmar pedido </p>
+            <p>Ao finalizar enviaremos a confirmação do envio para whatsapp do telefone cadastrado</p> -->
+        <div class="row">
+            <div class="text-center bg-light bg-gradient p-3">
+                <h2 class="mb-0">Itens do Pedido</h2>
+            </div>
+            <div class="col p-2 flex-fill">
+                <div id="sacola-conteudo">
+                    <div class="table-responsive">
+                        <table class="table table-sm text-sm" id="itens-sacola">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Quant.</th>
+                                    <th>Preço</th>
+                                    <th>Total</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-itens">
+                                <!-- Os itens serão adicionados dinamicamente aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr class="m-0">
+                    <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
+                        <div class="col-12 col-lg-6">
+                            <div
+                                class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-between justify-content-lg-end">
+                                <h2 class="d-flex align-items-center">
+                                    <span class="textcolor pe-5">Total do Pedido</span>
+                                </h2>
+                                <h2 class="text-start pe-3">
+                                    <span class="" id="tot_acumulado"></span>
+                                </h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <form class="col-6 p-2 flex-fill" method="post" action="{% url 'pedido:criarPedido' %}">
+                {% csrf_token %}
+                <div class="row my-2">
+                    <div class="col-lg-6 my-2">
+                        <h4>Endereço de Entrega</h4>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
+                                placeholder="CEP: 00000-000">
+                            <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
+                                maxlength="8" placeholder="Número Casa">
+                        </div>
+                        {{ form }}
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>Selecione a forma de pagamento:</h4>
+                        <select type="text" class="form-select form-select-sm mt-2" name="forma_pagamento" required>
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            {% for forma_pagamento in lista_forma_pagamento %}
+                            <option value="{{ forma_pagamento.id }}">{{ forma_pagamento.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-sm justify-content-end mt-2"
+                            style="background-color:#ffb03b; color:white;">Finalizar
+                            Pedido</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <form class="col-6 p-2 flex-fill" method="post"
-            action="{% if total_itens > 0 %}{% url 'checkout_pedido' %}{% endif %}">
-            {% csrf_token %}
-            <h4 class="">Endereço de Entrega</h4>
-            <div class="d-flex gap-2">
-                <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
-                    placeholder="CEP: 00000-000">
-                <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
-                    maxlength="8" placeholder="Número Casa">
-            </div>
-            {{ form }}
-            <div class="text-end m-2">
-                <button type="submit" class="btn " style="background-color:#ffb03b; color:white;">Finalizar
-                    Pedido</button>
-            </div>
-        </form>
     </div>
 </section>
 

@@ -11,7 +11,7 @@
                         09:00 - 13:00</span></i>
             </div>
             <div class="sacola-icon position-relative fs-6 me-3 me-lg-0" id="sacola-icon-container">
-                <a href="{% url 'pedido:listar_carrinho'%}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                <a href="{% url 'pedido:listarCarrinho'%}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                     id="sacola-link">
                     <i id="sacola-icon" class="bi bi-bag fs-5 me-1"></i>
                     <span id="sacola-count"
@@ -45,7 +45,7 @@
     // document.addEventListener("DOMContentLoaded", () => {
     //     const sacolaCount = document.getElementById('sacola-count');
     //     const sacolaIcone = document.getElementById('sacola-icon');
-    //     const carrinhoLink = document.querySelector(`a[href="{% url 'pedido:listar_carrinho'%}"]`);
+    //     const carrinhoLink = document.querySelector(`a[href="{% url 'pedido:listarCarrinho'%}"]`);
 
     //     // Transforma o valor de innerText para inteiro
     //     const totalItensInt = parseInt(sacolaCount.innerText, 10);

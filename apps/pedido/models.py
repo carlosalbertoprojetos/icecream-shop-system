@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 
+from apps.cliente.models import Cliente
 from apps.produto.models import Produto
 
 
@@ -41,6 +42,7 @@ class FormaPagamento(models.Model):
 
 class Pedido(models.Model):
     data_pedido = models.DateTimeField(default=now)
+    # cliente = models.ForeignKey(Cliente, on_delete=models.RESTRICT)
     usuario = models.ForeignKey(
         User, related_name="pedido_user", on_delete=models.PROTECT
     )
@@ -48,6 +50,7 @@ class Pedido(models.Model):
         FormaPagamento, on_delete=models.RESTRICT, null=True
     )
     pago = models.BooleanField(default=False)
+    # enviado = models.BooleanField(default=False)
     entregue = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     atendente = models.ForeignKey(User, on_delete=models.RESTRICT)

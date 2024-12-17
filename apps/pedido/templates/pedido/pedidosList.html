@@ -1,217 +1,92 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'base.html' %}
+{% load static %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pedidos</title>
+{% block title %} Finalizar Pedido {% endblock %}
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
+{% block content %}
 
-    <body>
-        <div class="container">
-            <div class="responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Pedido</th>
-                            <th>Data</th>
-                            <th>Cliente</th>
-                            <th>Atendente</th>
-                            <th>Valor</th>
-                            <th>Pago</th>
-                            <th>Entregador</th>
-                            <th>Enviado</th>
-                            <th>Entregue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>01</td>
-                            <td>18/10/2024</td>
-                            <td>Joana D'ark</td>
-                            <td>Juliana</td>
-                            <td>R$ 66,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Vicentino</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>18/10/2024</td>
-                            <td>Frederico</td>
-                            <td>Juliana</td>
-                            <td>R$ 47,50</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Vicentino</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>03</td>
-                            <td>18/10/2024</td>
-                            <td>Alexandra</td>
-                            <td>Juliana</td>
-                            <td>R$ 55,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Théo</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>04</td>
-                            <td>18/10/2024</td>
-                            <td>Jorge</td>
-                            <td>Anna</td>
-                            <td>R$ 25,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Vicentino</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>05</td>
-                            <td>18/10/2024</td>
-                            <td>Melissa</td>
-                            <td>Anna</td>
-                            <td>R$ 99,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Théo</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>06</td>
-                            <td>17/10/2024</td>
-                            <td>Alfie</td>
-                            <td>Juliana</td>
-                            <td>R$ 47,50</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Retirado</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>07</td>
-                            <td>17/10/2024</td>
-                            <td>Helenice</td>
-                            <td>Juliana</td>
-                            <td>R$ 104,50</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Théo</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>08</td>
-                            <td>17/10/2024</td>
-                            <td>Hélio</td>
-                            <td>Anna</td>
-                            <td>R$ 80,50</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Vicentino</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>09</td>
-                            <td>16/10/2024</td>
-                            <td>Marlon</td>
-                            <td>Juliana</td>
-                            <td>R$ 33,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Retirado</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>16/10/2024</td>
-                            <td>Léo</td>
-                            <td>Juliana</td>
-                            <td>R$ 26,00</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>Vicentino</td>
-                            <td>
-                                <i class="fas fa-check-circle link-success"></i>
-                            </td>
-                            <td>
-                                <i class="fas fa-times-circle link-danger"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </body>
+<head>
+    <style>
+        .header {
+            background-color: #15110dd9;
+        }
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        .textcolor {
+            color: #ffb03b;
+        }
 
-</html>
+        .bg_color {
+            background-color: #ffb03b;
+        }
+    </style>
+</head>
+
+<section class="pb-2">
+    <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meus Pedidos:
+        <span class="fs-bold textcolor">
+            N° {{ num_pedidos }}</span>
+    </h2>
+
+    <div class="responsive">
+        <table class="table table-hover" id="id_table">
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Atendente</th>
+                    <th>Valor</th>
+                    <th>Pago</th>
+                    <!-- <th>Enviado</th> -->
+                    <th>Entregador</th>
+                    <th>Entregue</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pedidos %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.data_pedido }}</td>
+                    <td>{{ p.usuario }}</td>
+                    <td>{{ p.usuario }}</td>
+                    <td>R$ {{ p.total }}</td>
+                    <td>{{ p.pago|default:'' }}</td>
+                    <!-- <td>{{ p.enviado }}</td> -->
+                    <td>{{ p.entregador|default:'' }}</td>
+                    <td>{{ p.entregue|default:'' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="text-end">
+                    <th colspan="8">
+                        Valor Total dos Pedidos: R$ {{ total_valor|floatformat:2 }}
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+
+<script src="{% static 'assets/js/carrinho.js' %}"></script>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/datatables.min.js' %}"></script>
+<script src="{% static 'js/jqueryDataTable.js' %}"></script>
+
+<script src="{% static 'js/jqueryDataTable.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_table').DataTable({
+            "order": [[0, 'desc']],
+            "pageLength": 100,
+            "language": {
+                "url": "{% static 'js/Portuguese-Brasil.json' %}"
+            }
+        }
+        );
+    }); 
+</script>
+{% endblock %}

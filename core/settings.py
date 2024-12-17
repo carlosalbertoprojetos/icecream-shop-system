@@ -108,6 +108,21 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 dias
 SESSION_SAVE_EVERY_REQUEST = True  # Salva a sessão a cada requisição
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Mantém a sessão ativa após fechar o navegador
 
+
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/0",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         },
+#     }
+# }
+
+
 # # Logs
 # LOGGING = {
 #     "version": 1,

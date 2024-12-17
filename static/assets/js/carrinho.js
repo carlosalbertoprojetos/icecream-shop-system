@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
 function atualizarCarrinho() {
     fetch('/pedido/carrinho/')
         .then(response => response.json())
@@ -93,6 +92,7 @@ function atualizarCarrinho() {
             const tabelaItens = document.getElementById("tabela-itens");
             const totItems = document.getElementById("tot_items");
             const totAcumulado = document.getElementById("tot_acumulado");
+            console.log(totItems)
 
             // Limpa a tabela antes de adicionar novos itens
             tabelaItens.innerHTML = "";

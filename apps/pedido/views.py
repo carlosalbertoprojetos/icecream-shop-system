@@ -1,14 +1,19 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Sum
 
 
 from apps.produto.models import Produto
+from apps.pedido.models import FormaPagamento, ItensCarrinho, Pedido
 
 
 def checkout(request):
+    lista_forma_pagamento = FormaPagamento.objects.all()
     # Lógica de checkout, como exibir resumo da compra, etc.
-    return render(request, "pedido/checkout.html")
+    context = {"lista_forma_pagamento": lista_forma_pagamento}
+    return render(request, "pedido/checkout.html", context)
 
 
 def calcular_quantidade_carrinho(carrinho):
@@ -72,8 +77,6 @@ def tirarItem(request, produto_id):
     # Calcula a quantidade total de itens no carrinho
     quantidade_total = calcular_quantidade_carrinho(carrinho)
 
-    # calcular_quantidade_carrinho(carrinho)
-
     # Salva o carrinho na sessão
     request.session["carrinho"] = carrinho
 
@@ -99,24 +102,10 @@ def removerItem(request, produto_id):
     # Salva o carrinho atualizado na sessão
     request.session["carrinho"] = carrinho
 
-    return redirect("pedido:listar_carrinho")
+    return redirect("pedido:listarCarrinho")
 
 
-# def listar_carrinho(request):
-#     carrinho = request.session.get("carrinho", {})
-#     # Calcula o total do pedido somando os valores totais dos itens
-#     total_pedido = sum(item["total"] for item in carrinho.values())
-
-
-#     # Retorna o carrinho e o total do pedido como contexto para o template
-#     context = {
-#         "carrinho": carrinho,
-#         "total_pedido": total_pedido,
-#     }
-#     return render(request, "pedido/carrinho.html", context)
-
-
-def listar_carrinho(request):
+def listarCarrinho(request):
     carrinho = request.session.get("carrinho", {})
 
     # Calcula o total do pedido somando os valores totais dos itens
@@ -129,3 +118,83 @@ def listar_carrinho(request):
             "total_pedido": total_pedido,
         }
     )
+
+
+@login_required(login_url="/admin/login/?next=/admin/")
+def criarPedido(request):
+    if request.method == "POST":
+        bd_forma_pagamento = request.POST.get("forma_pagamento")
+        forma_pagamento = FormaPagamento.objects.get(id=bd_forma_pagamento)
+
+        # Obtém o carrinho da sessão, ou inicializa como vazio
+        carrinho = request.session.get("carrinho", {})
+
+        total_geral = 0
+        # Calcula o total geral
+        for key, item in carrinho.items():
+            preco = item["preco"]
+            quantidade = item["quantidade"]
+            total_geral += preco * quantidade
+
+        pedido = Pedido.objects.create(
+            usuario=request.user,
+            forma_pagamento=forma_pagamento,
+            total=total_geral,
+            atendente=request.user,
+        )
+
+        # Iterando pelos itens e imprimindo os preços
+        for key, item in carrinho.items():
+            ItensCarrinho.objects.create(
+                pedido=pedido,
+                produto=Produto.objects.get(id=key),
+                quantidade=item["quantidade"],
+                preco=item["preco"],
+            )
+
+    # Limpa a sessão após criar o pedido
+    request.session.flush()
+
+    return redirect("pedido:pedidoFinalizado")
+
+
+def pedidoFinalizado(request):
+    pedido = Pedido.objects.filter(usuario=request.user).last()
+    bd_itens = ItensCarrinho.objects.filter(pedido=pedido)
+
+    # Calcula o total de cada item (preço * quantidade)
+    itens = [
+        {
+            "id": item.id,
+            "produto": item.produto,
+            "preco": item.produto.preco,
+            "quantidade": item.quantidade,
+            "total": item.produto.preco * item.quantidade,
+        }
+        for item in bd_itens
+    ]
+
+    template_name = "pedido/pedidoFinalizado.html"
+    context = {"pedido": pedido, "itens": itens}
+    return render(request, template_name, context)
+
+
+def pedidosLista(request):
+    pedidos = Pedido.objects.filter(usuario=request.user)
+    itens = ItensCarrinho.objects.filter(pedido__usuario=request.user)
+
+    # Contagem de pedidos e soma do valor dos pedidos
+    num_pedidos = pedidos.count()  # Quantidade de pedidos
+    total_valor = pedidos.aggregate(Sum("total"))[
+        "total__sum"
+    ]  # Soma do valor dos pedidos
+
+    # Passando as variáveis para o contexto
+    context = {
+        "pedidos": pedidos,
+        "itens": itens,
+        "num_pedidos": num_pedidos,
+        "total_valor": total_valor,
+    }
+    template_name = "pedido/pedidosList.html"
+    return render(request, template_name, context)

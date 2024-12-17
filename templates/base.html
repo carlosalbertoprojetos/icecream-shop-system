@@ -49,35 +49,34 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
 
-    <body class="index-page">
+    <body class="index-page d-flex flex-column" style="min-height: 100vh;">
 
         {% include 'includes/header.html' %}
 
         {% include 'components/message.html' %}
 
-        <main class="">
+        <main class="flex-grow-1">
             {% block content %}
             {% endblock %}
         </main>
 
 
-        <footer id="footer" class="footer dark-background">
+        <footer id="footer" class="footer dark-background mt-auto">
 
             <div class="container">
                 <div class="row gy-3">
-                    <div class="col-lg-3 col-md-6 d-flex">
+                    <div class="col-lg-3 d-flex justify-content-between align-items-center px-5">
                         <i class="bi bi-geo-alt icon"></i>
-                        <div class="address">
+                        <div class="text-start ms-2">
                             <h4>Endereço</h4>
-                            <p>Av. Acesita, 573 - Olaria</p>
-                            <p>Timóteo/MG</p>
+                            <p>Av. Acesita, 573 - Olaria Timóteo/MG</p>
                             <p></p>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex">
+                    <div class="col-lg-3 d-flex justify-content-between align-items-center px-5">
                         <i class="bi bi-telephone icon"></i>
-                        <div>
+                        <div class="text-start ms-2">
                             <h4>Contato</h4>
                             <p>
                                 <strong>Telefone:</strong> <span>(31) 99578-1020</span><br>
@@ -86,12 +85,12 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex">
+                    <div class="col-lg-3 d-flex justify-content-between align-items-center px-5">
                         <i class="bi bi-clock icon"></i>
-                        <div>
+                        <div class="text-start ms-2">
                             <h4>Horário de Funcionamento</h4>
                             <p>
-                                <strong>Seg a Sex:</strong> <span>09:00 - 19:00</span><br>
+                                <strong>Segunda a Sexta:</strong> <span>09:00 - 19:00</span>
                                 <strong>Sábado</strong>: <span>09:00 - 13:00</span>
                             </p>
                         </div>
@@ -99,7 +98,7 @@
 
                     <div class="col-lg-3 col-md-6">
                         <h4>Redes Sociais</h4>
-                        <div class="social-links d-flex">
+                        <div class="social-links d-flex justify-content-center">
                             <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
                             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
                             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>

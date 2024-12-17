@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Dados do Pedido {% endblock %}
+
+{% block content %}
+
+<head>
+    <style>
+        .header {
+            background-color: #15110dd9;
+        }
+
+        .textcolor {
+            color: #ffb03b;
+        }
+
+        .bg_color {
+            background-color: #ffb03b;
+        }
+    </style>
+</head>
+
+<section class="pb-2">
+    {% if user_authenticated %}
+    <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
+        <span class="fs-bold textcolor">
+            N° {{ pedido.id }}</span>
+    </h2>
+    {% else %}
+    <div class="d-flex justify-content-center border-bottom">
+        <h2 class="fs-bold textcolor px-3 ps-lg-5 mb-0">
+            <span class="fs-bold textcolor">
+                Pedido Realizado</span>
+        </h2>
+        <h5 class="offcanvas-title pt-1" id="sidebarSacolaLabel"> - Total de Itens - <b id="tot_items"></b></h5>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="text-center bg-light bg-gradient p-3">
+            <h2 class="mb-0">Itens do Pedido</h2>
+        </div>
+        <div class="col p-2 flex-fill">
+            <div id="sacola-conteudo">
+                <div class="table-responsive">
+                    <table class="table table-sm text-sm" id="itens-sacola">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quant.</th>
+                                <th>Preço</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in pedidos %}
+                            <tr>
+                                <td>{{ i.produto }}</td>
+                                <td>{{ i.quantidade }}</td>
+                                <td>{{ i.preco }}</td>
+                                <td>{{ i.total }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="m-0">
+                <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
+                    <div class="col-12 col-lg-6">
+                        <div
+                            class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-between justify-content-lg-end">
+                            <h2 class="d-flex align-items-center w-75">
+                                <span class="textcolor pe-5">Total do Pedido</span>
+                            </h2>
+                            <h2 class="text-start w-100 pe-3">
+                                <span class="">{{ pedido.total }}</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 p-2 flex-fill">
+            <h4 class="">Endereço de Entrega</h4>
+            {{ form }}
+            <div class="text-end m-2">
+                <div class="m-2">
+                    <h5>Forma de pagamento:</h5>
+                    {{ pedido.forma_pagamento }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
