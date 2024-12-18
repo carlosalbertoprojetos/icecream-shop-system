@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.instagram",
+    # manter dados da session ao ralizar o login
+    "core.apps.KeepSessionData",
 ]
 
 MIDDLEWARE = [

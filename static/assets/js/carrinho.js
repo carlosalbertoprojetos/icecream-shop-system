@@ -109,18 +109,18 @@ function atualizarCarrinho() {
                 <tr class="text_menu text-sm">
                     <td>${item.nome}</td>
                     <td>
-                        <a href="#" class="fs-3 pe-2" onclick="tirarItem(${item.id_prod})">
+                        <a href="#" class="fs-3 m-auto pe-2" onclick="tirarItem(${item.id_prod})">
                                 -
                         </a>
                         ${item.quantidade}
-                        <a href="#" class="fs-3 ps-2" onclick="adicionarItem(${item.id_prod})">
+                        <a href="#" class="fs-3 m-auto ps-2" onclick="adicionarItem(${item.id_prod})">
                                 +
                         </a>
                     </td>
                     <td>R$ ${item.preco.toFixed(2)}</td>
                     <td>R$ ${item.total.toFixed(2)}</td>
                     <td>
-                        <a href="#" class="fs-3 pe-2" onclick="removerItem(${item.id_prod})">
+                        <a href="#" class="fs-3 pe-lg-2" onclick="removerItem(${item.id_prod})">
                         <i class="bi bi-trash3-fill fs-5 text-danger"></i>
                         </a>
                     </td>

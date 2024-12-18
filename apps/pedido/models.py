@@ -67,6 +67,7 @@ class Pedido(models.Model):
         verbose_name_plural = "Pedido"
 
 
+# ItensPedido
 class ItensCarrinho(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     produto = models.ForeignKey(

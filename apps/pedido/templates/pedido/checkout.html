@@ -80,9 +80,9 @@
             <form class="col-6 p-2 flex-fill" method="post" action="{% url 'pedido:criarPedido' %}">
                 {% csrf_token %}
                 <div class="row my-2">
-                    <div class="col-lg-6 my-2">
+                    <div class=" col-lg-6 my-2 mt-lg-0">
                         <h4>Endereço de Entrega</h4>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 text-muted ">
                             <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
                                 placeholder="CEP: 00000-000">
                             <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
@@ -92,7 +92,8 @@
                     </div>
                     <div class="col-lg-6">
                         <h4>Selecione a forma de pagamento:</h4>
-                        <select type="text" class="form-select form-select-sm mt-2" name="forma_pagamento" required>
+                        <select type="text" class="form-select form-select-sm text-muted mt-2" name="forma_pagamento"
+                            required>
                             <option value="" disabled selected>Escolha uma opção</option>
                             {% for forma_pagamento in lista_forma_pagamento %}
                             <option value="{{ forma_pagamento.id }}">{{ forma_pagamento.nome }}</option>

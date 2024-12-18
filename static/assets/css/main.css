@@ -1662,8 +1662,6 @@ section,
     color: var(--accent-color);
 }
 
-
-
 .sacola-icon {
     position: relative;
 }
@@ -1671,4 +1669,17 @@ section,
 .sacola-icon .badge {
     font-size: 0.75em;
     padding: 0.5em;
+}
+
+
+.text_menu {
+    height: 40px;
+    /* Defina a altura desejada para a linha */
+}
+
+.text_menu td {
+    vertical-align: middle;
+    /* Centraliza o conteúdo verticalmente */
+    text-align: center;
+    /* Centraliza o conteúdo horizontalmente, se necessário */
 }
