@@ -7,6 +7,7 @@ urlpatterns = [
     path("checkout/", v.checkout, name="checkout"),
     path("criar/", v.criarPedido, name="criarPedido"),
     path("carrinho/", v.listarCarrinho, name="listarCarrinho"),
+    path("buscaCep/", v.buscaCep, name="buscaCep"),
     path("finalizado/", v.pedidoFinalizado, name="pedidoFinalizado"),
     path("carrinho/adicionar/<int:produto_id>/", v.adicionarItem, name="adicionarItem"),
     path("carrinho/tirar/<int:produto_id>/", v.tirarItem, name="tirarItem"),

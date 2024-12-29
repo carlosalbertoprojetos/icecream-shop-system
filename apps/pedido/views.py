@@ -1,3 +1,4 @@
+import requests
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
@@ -156,6 +157,15 @@ def criarPedido(request):
     request.session.flush()
 
     return redirect("pedido:pedidoFinalizado")
+
+
+# View para buscar endereço a partir do CEP
+def buscaCep(request):
+    cep = request.GET.get("cep")
+    response = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
+    data = response.json()
+
+    return JsonResponse(data)
 
 
 def pedidoFinalizado(request):

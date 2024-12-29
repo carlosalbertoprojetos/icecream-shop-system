@@ -92,8 +92,7 @@ function atualizarCarrinho() {
             const tabelaItens = document.getElementById("tabela-itens");
             const totItems = document.getElementById("tot_items");
             const totAcumulado = document.getElementById("tot_acumulado");
-            console.log(totItems)
-
+            
             // Limpa a tabela antes de adicionar novos itens
             tabelaItens.innerHTML = "";
 
@@ -140,3 +139,32 @@ function atualizarCarrinho() {
 
 // Chama a função para atualizar o carrinho ao carregar a página
 document.addEventListener("DOMContentLoaded", atualizarCarrinho);
+
+
+function buscarEndereco() {
+    var cep = document.getElementById(`cep`).value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+    if (cep.length == 8) {
+        fetch(`/pedido/buscaCep/?cep=${cep}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    aviso(false, "CEP não encontrado");
+                } else {
+                    let endereco = document.getElementById('endereco')
+                    endereco.setAttribute('class', 'card form-control form-control-sm my-2')
+                    endereco.textContent = [data.logradouro, data.bairro, data.localidade, data.uf]
+                    // console.log(data.logradouro, data.bairro, data.localidade, data.uf)
+                    // document.getElementById(`id_form-${index}-logradouro`).value = data.logradouro;
+                    // document.getElementById(`id_form-${index}-bairro`).value = data.bairro;
+                    // document.getElementById(`id_form-${index}-cidade`).value = data.localidade;
+                    // document.getElementById(`id_form-${index}-estado`).value = data.uf;
+                }
+            })
+            .catch(error => {
+                aviso(false, 'Erro ao buscar o endereço: ' + error.message);
+            });
+    } else {
+        aviso(false, "Insira um CEP válido");
+    }
+}

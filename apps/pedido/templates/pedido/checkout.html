@@ -84,11 +84,12 @@
                         <h4>Endereço de Entrega</h4>
                         <div class="d-flex gap-2 text-muted ">
                             <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
-                                placeholder="CEP: 00000-000">
+                                placeholder="CEP: 00000-000" onblur="buscarEndereco()">
                             <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
                                 maxlength="8" placeholder="Número Casa">
                         </div>
-                        {{ form }}
+                        <div class="hidden" id="endereco"></div>
+
                     </div>
                     <div class="col-lg-6">
                         <h4>Selecione a forma de pagamento:</h4>
@@ -110,5 +111,53 @@
 </section>
 
 <script src="{% static 'assets/js/carrinho.js' %}"></script>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    $(document).ready(function () {
+        // Retorna endereço ao digitar cep e número
+        $("#cep").on('keyup', function () {
+            var cep = $(this).val().replace(/\D/g, '');
+            console.log(cep);
+    
+            if (cep.length === 8) {
+    
+                // Fazer a chamada AJAX para buscar o endereço com base no CEP
+                $.ajax({
+                    url: 'https://viacep.com.br/ws/' + cep + '/json/',
+                    method: 'GET',
+                    success: function (data) {
+    
+                        var numero_casa = $("#numero_casa").val();
+    
+                        // Criar o endereço formatado
+                        var enderecoFormatado = 'Logradouro: ' + data.logradouro + ', ' +
+                            'Bairro: ' + data.bairro + ', ' +
+                            'Cidade: ' + data.localidade + ', ' +
+                            'Estado: ' + data.uf + numero_casa;
+    
+                        // Preencher o campo de endereço
+                        $("#id_endereco").val(enderecoFormatado);
+                    },
+                    error: function (error) {
+                        console.log("Erro ao buscar CEP:", error);
+                        alert("Erro ao buscar CEP. Verifique se o CEP é válido.");
+                    }
+                });
+            }
+        });
+    
+        $("#numero_casa").on('blur', function () {
+            var numero_casa = $(this).val().replace(/\D/g, '');
+            var cep = $("#id_endereco").val();
+            var enderecoFormatado = cep + ', ' +
+                'Número: ' + numero_casa;
+            $("#id_endereco").val(enderecoFormatado);
+        });
+    });
+</script>
 
 {% endblock %}
