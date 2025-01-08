@@ -21,21 +21,39 @@
     </style>
 </head>
 
-<section class="pb-2">
-    {% if user_authenticated %}
-    <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
-        <span class="fs-bold textcolor">
-            N° {{ pedido.id }}</span>
-    </h2>
-    {% else %}
-    <div class="d-flex justify-content-center border-bottom">
-        <h2 class="fs-bold textcolor px-3 ps-lg-5 mb-0">
-            <span class="fs-bold textcolor">
-                Pedido Realizado</span>
-        </h2>
-        <h5 class="offcanvas-title pt-1" id="sidebarSacolaLabel"> - Total de Itens - <b id="tot_items"></b></h5>
+<section class="container-fluid px-0 pb-2">
+    <div class="d-flex justify-content-between">
+        <div class="text-start p-3 px-5">
+            <h2 class="ps-lg-5 mb-0">
+                {{ pedido.usuario|title }}
+            </h2>
+        </div>
+        <div class="fs-bold textcolor align-content-center pe-5">
+            Atendido por: {{ pedido.atendente }}
+        </div>
     </div>
-    {% endif %}
+    <hr>
+    <div class="d-flex justify-content-between border-bottom px-5">
+        <h2 class="fs-bold textcolor p-1 ps-lg-5 mb-0">
+            Pedido Realizado com Sucesso!!!
+        </h2>
+        <div class="fs-bold textcolor">
+            Pedido Nº {{ pedido.id }} - Realizado em {{ pedido.data_pedido }}
+        </div>
+    </div>
+
+    <!-- <h2>Pedido #{{ pedido.id }}</h2>
+    <p>Data: {{ pedido.data_pedido|date:"d/m/Y H:i" }}</p>
+    <p>Cliente: {{ pedido.usuario.username }}</p>
+    <p>Forma de Pagamento: {{ pedido.forma_pagamento }}</p>
+    <p>Pago: {{ pedido.pago|yesno:"Sim,Não" }}</p>
+    <p>Entregue: {{ pedido.entregue|yesno:"Sim,Não" }}</p>
+    <p>Total: R$ {{ pedido.total }}</p>
+    <p>Atendente: {{ pedido.atendente.username }}</p>
+    {% if pedido.entregador %}
+    <p>Entregador: {{ pedido.entregador.nome }}</p>
+    {% endif %} -->
+
     <div class="row">
         <div class="text-center bg-light bg-gradient p-3">
             <h2 class="mb-0">Itens do Pedido</h2>
@@ -53,12 +71,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in pedidos %}
-                            <tr>
+                            {% for i in itens %}
+                            <tr class="text_menu text-sm">
                                 <td>{{ i.produto }}</td>
                                 <td>{{ i.quantidade }}</td>
-                                <td>{{ i.preco }}</td>
-                                <td>{{ i.total }}</td>
+                                <td>R$ {{ i.preco }}</td>
+                                <td>R$ {{ i.total }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -70,10 +88,10 @@
                         <div
                             class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-between justify-content-lg-end">
                             <h2 class="d-flex align-items-center w-75">
-                                <span class="textcolor pe-5">Total do Pedido</span>
+                                <span class="textcolor">Total do Pedido</span>
                             </h2>
                             <h2 class="text-start w-100 pe-3">
-                                <span class="">{{ pedido.total }}</span>
+                                <span class="">R$ {{ pedido.total }}</span>
                             </h2>
                         </div>
                     </div>
@@ -89,8 +107,15 @@
                     {{ pedido.forma_pagamento }}
                 </div>
             </div>
+
+            <div class="text-center p-3">
+                Pago: {{ pedido.pago|yesno:"Sim,Não" }}
+                Entregue: {{ pedido.entregue|yesno:"Sim,Não" }}
+            </div>
         </div>
     </div>
 </section>
+
+<script src="{% static 'assets/js/carrinho.js' %}"></script>
 
 {% endblock %}

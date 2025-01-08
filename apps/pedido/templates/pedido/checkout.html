@@ -21,96 +21,124 @@
     </style>
 </head>
 
-<section class="pb-2">
-    <div class="container">
-        {% if user_authenticated %}
-        <h2 class="border-bottom ps-3 ps-lg-5 mb-0">Meu Pedido:
+<section class="container-fluid px-0 pb-2">
+    <div class="d-flex justify-content-between border-bottom px-5">
+        <h2 class="fs-bold textcolor p-1 ps-lg-5 mb-0">
             <span class="fs-bold textcolor">
-                N° {{ pedido.id }}</span>
+                Confira o pedido</span>
         </h2>
-        {% else %}
-        <div class="d-flex justify-content-center border-bottom">
-            <h2 class="fs-bold textcolor px-3 ps-lg-5 mb-0">
-                <span class="fs-bold textcolor">
-                    Confira sua compra</span>
-            </h2>
-            <h5 class="offcanvas-title pt-1" id="sidebarSacolaLabel"> - Total de Itens - <b id="tot_items"></b></h5>
-        </div>
-        {% endif %}
-        <!-- <p>Confirmar pedido </p>
+        <h5 class="offcanvas-title pt-1" id="sidebarSacolaLabel">Total de Itens - <b id="tot_items"
+                class="textcolor"></b></h5>
+    </div>
+
+    <!-- <p>Confirmar pedido </p>
             <p>Ao finalizar enviaremos a confirmação do envio para whatsapp do telefone cadastrado</p> -->
-        <div class="row">
-            <div class="text-center bg-light bg-gradient p-3">
-                <h2 class="mb-0">Itens do Pedido</h2>
-            </div>
-            <div class="col p-2 flex-fill">
-                <div id="sacola-conteudo">
-                    <div class="table-responsive">
-                        <table class="table table-sm text-sm" id="itens-sacola">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Quant.</th>
-                                    <th>Preço</th>
-                                    <th>Total</th>
-                                    <th>Excluir</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabela-itens">
-                                <!-- Os itens serão adicionados dinamicamente aqui -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr class="m-0">
-                    <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
-                        <div class="col-12 col-lg-6">
-                            <div
-                                class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-between justify-content-lg-end">
-                                <h2 class="d-flex align-items-center">
-                                    <span class="textcolor pe-5">Total do Pedido</span>
-                                </h2>
-                                <h2 class="text-start pe-3">
-                                    <span class="" id="tot_acumulado"></span>
-                                </h2>
-                            </div>
+    <div class="row">
+        <div class="text-center bg-light bg-gradient p-3">
+            <h2 class="mb-0">Itens do Pedido</h2>
+        </div>
+        <div class="col p-2 flex-fill">
+            <div id="sacola-conteudo">
+                <div class="table-responsive">
+                    <table class="table table-sm text-sm" id="itens-sacola">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quant.</th>
+                                <th>Preço</th>
+                                <th>Total</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-itens">
+                            <!-- Os itens serão adicionados dinamicamente aqui -->
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="m-0">
+                <div class="bg-light bg-gradient px-lg-5 d-flex justify-content-lg-end">
+                    <div class="col-12 col-lg-6">
+                        <div
+                            class="container-lg d-flex gap-2 p-2 px-lg-5 mb-0 justify-content-between justify-content-lg-end">
+                            <h2 class="d-flex align-items-center">
+                                <span class="textcolor pe-5">Total do Pedido</span>
+                            </h2>
+                            <h2 class="text-start pe-3">
+                                <span class="" id="tot_acumulado"></span>
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <form class="col-6 p-2 flex-fill" method="post" action="{% url 'pedido:criarPedido' %}">
-                {% csrf_token %}
-                <div class="row my-2">
-                    <div class=" col-lg-6 my-2 mt-lg-0">
+        </div>
+        <form class="col-6 p-2 px-5 flex-fill" method="post" action="{% url 'pedido:criarPedido' %}">
+            {% csrf_token %}
+            <div class="row my-2">
+                <div class=" col-lg-6 my-2 mt-lg-0">
+                    <div class="col-12">
                         <h4>Endereço de Entrega</h4>
                         <div class="d-flex gap-2 text-muted ">
                             <input type="text" class="form-control form-control-sm" id="cep" name="cep" maxlength="8"
-                                placeholder="CEP: 00000-000" onblur="buscarEndereco()">
+                                placeholder="CEP: 00000-000" onblur="buscarEndereco()" required>
                             <input type="text" class="form-control form-control-sm" id="numero_casa" name="numero_casa"
-                                maxlength="8" placeholder="Número Casa">
+                                maxlength="8" placeholder="Número Casa" required>
                         </div>
-                        <div class="hidden" id="endereco"></div>
+                        <div class="hidden" id="endereco">
 
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h4>Selecione a forma de pagamento:</h4>
-                        <select type="text" class="form-select form-select-sm text-muted mt-2" name="forma_pagamento"
-                            required>
-                            <option value="" disabled selected>Escolha uma opção</option>
-                            {% for forma_pagamento in lista_forma_pagamento %}
-                            <option value="{{ forma_pagamento.id }}">{{ forma_pagamento.nome }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="btn btn-sm justify-content-end mt-2"
-                            style="background-color:#ffb03b; color:white;">Finalizar
-                            Pedido</button>
+                    <div class="text-start mt-2">
+                        <!-- Checkbox para ativar/desativar detalhes -->
+                        <div id="toggle-container" class="d-flex gap-2">
+                            <input type="checkbox" id="toggle-details" name="enable_details" style="width: 3%;">
+                            <h5 style="margin: 0;">Adicionar detalhes do pedido</h5>
+                        </div>
+
+                        <!-- Campo para inserir detalhes -->
+                        <div id="details-field" class="hidden">
+                            <h4 for="details">Detalhes do Pedido:</h4>
+                            <textarea class="form-control form-control-sm" id="details" name="details" rows="4"
+                                cols="50" placeholder="Insira os detalhes do pedido..."></textarea>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="col-lg-6">
+                    <h4>Selecione a forma de pagamento:</h4>
+                    <select type="text" class="form-select form-select-sm text-muted mt-2" name="forma_pagamento"
+                        required>
+                        <option value="" disabled selected>Escolha uma opção</option>
+                        {% for forma_pagamento in lista_forma_pagamento %}
+                        <option value="{{ forma_pagamento.id }}">{{ forma_pagamento.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-sm justify-content-end mt-2"
+                        style="background-color:#ffb03b; color:white;">Finalizar
+                        Pedido</button>
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 
 <script src="{% static 'assets/js/carrinho.js' %}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleCheckbox = document.getElementById('toggle-details');
+        const toggleContainer = document.getElementById('toggle-container');
+        const detailsField = document.getElementById('details-field');
+
+        // Garante que o campo de detalhes comece oculto
+        detailsField.classList.add('hidden');
+
+        toggleCheckbox.addEventListener('change', () => {
+            if (toggleCheckbox.checked) {
+                detailsField.classList.remove('hidden'); // Mostra o campo de detalhes
+                toggleContainer.classList.value = "hidden"; // Esconde o checkbox e o texto
+            }
+        });
+    });
+</script>
 
 {% endblock %}
 
@@ -122,23 +150,23 @@
         $("#cep").on('keyup', function () {
             var cep = $(this).val().replace(/\D/g, '');
             console.log(cep);
-    
+
             if (cep.length === 8) {
-    
+
                 // Fazer a chamada AJAX para buscar o endereço com base no CEP
                 $.ajax({
                     url: 'https://viacep.com.br/ws/' + cep + '/json/',
                     method: 'GET',
                     success: function (data) {
-    
+
                         var numero_casa = $("#numero_casa").val();
-    
+
                         // Criar o endereço formatado
                         var enderecoFormatado = 'Logradouro: ' + data.logradouro + ', ' +
                             'Bairro: ' + data.bairro + ', ' +
                             'Cidade: ' + data.localidade + ', ' +
                             'Estado: ' + data.uf + numero_casa;
-    
+
                         // Preencher o campo de endereço
                         $("#id_endereco").val(enderecoFormatado);
                     },
@@ -149,7 +177,7 @@
                 });
             }
         });
-    
+
         $("#numero_casa").on('blur', function () {
             var numero_casa = $(this).val().replace(/\D/g, '');
             var cep = $("#id_endereco").val();

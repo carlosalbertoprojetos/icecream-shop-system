@@ -1683,3 +1683,7 @@ section,
     text-align: center;
     /* Centraliza o conteúdo horizontalmente, se necessário */
 }
+
+.hidden {
+    display: none;
+}

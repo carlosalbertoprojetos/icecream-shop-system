@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 
-from apps.cliente.models import Cliente
 from apps.produto.models import Produto
 
 

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Sum
+from django.db.models import Sum
 
 
 from apps.produto.models import Produto
@@ -154,9 +154,9 @@ def criarPedido(request):
             )
 
     # Limpa a sessão após criar o pedido
-    request.session.flush()
+    # request.session.flush()
 
-    return redirect("pedido:pedidoFinalizado")
+    return redirect("pedido:pedidoFinalizado", pedido.id)
 
 
 # View para buscar endereço a partir do CEP
@@ -168,9 +168,9 @@ def buscaCep(request):
     return JsonResponse(data)
 
 
-def pedidoFinalizado(request):
-    pedido = Pedido.objects.filter(usuario=request.user).last()
-    bd_itens = ItensCarrinho.objects.filter(pedido=pedido)
+def pedidoFinalizado(request, pedido_id):
+    pedido = Pedido.objects.get(id=pedido_id)
+    bd_itens = ItensCarrinho.objects.filter(pedido__id=pedido_id)
 
     # Calcula o total de cada item (preço * quantidade)
     itens = [
