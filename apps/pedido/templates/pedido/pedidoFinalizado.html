@@ -23,7 +23,7 @@
 
 <section class="container-fluid px-0 pb-2">
     <div class="d-flex justify-content-between">
-        <div class="text-start p-3 px-5">
+        <div class="text-start py-1 px-5">
             <h2 class="ps-lg-5 mb-0">
                 {{ pedido.usuario|title }}
             </h2>
@@ -32,12 +32,12 @@
             Atendido por: {{ pedido.atendente }}
         </div>
     </div>
-    <hr>
+    <hr class="mt-0">
     <div class="d-flex justify-content-between border-bottom px-5">
         <h2 class="fs-bold textcolor p-1 ps-lg-5 mb-0">
             Pedido Realizado com Sucesso!!!
         </h2>
-        <div class="fs-bold textcolor">
+        <div class="fs-bold textcolor align-content-end">
             Pedido Nº {{ pedido.id }} - Realizado em {{ pedido.data_pedido }}
         </div>
     </div>
@@ -107,10 +107,19 @@
                     {{ pedido.forma_pagamento }}
                 </div>
             </div>
-
             <div class="text-center p-3">
                 Pago: {{ pedido.pago|yesno:"Sim,Não" }}
+                {% if pedido.pago == True %}
+                <i class="bi bi-check-circle-fill" style="color: green;"></i>
+                {% else %}
+                <i class="bi bi-slash-circle-fill" style="color: red;"></i>
+                {% endif %}
                 Entregue: {{ pedido.entregue|yesno:"Sim,Não" }}
+                {% if pedido.entregue == True %}
+                <i class="bi bi-check-circle-fill" style="color: green;"></i>
+                {% else %}
+                <i class="bi bi-slash-circle-fill" style="color: red;"></i>
+                {% endif %}
             </div>
         </div>
     </div>

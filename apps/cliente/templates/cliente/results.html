@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Loteria</title>
+</head>
+<body>
+    <h1>Resultados Processados</h1>
+
+    <h2>Probabilidades Gerais</h2>
+    <ul>
+        {% for num, prob in probabilities.items %}
+            <li>Número {{ num }}: Probabilidade {{ prob }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Números Mais Sorteados por Posição</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Posição</th>
+                <th>Número Mais Sorteado</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in position_results %}
+                <tr>
+                    <td>{{ result.position }}</td>
+                    <td>{{ result.most_frequent }}</td>
+                    <td>{{ result.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>15 Números com Maior Probabilidade de Serem Sorteados</h2>
+<ul>
+    {% for num in top_15_numbers %}
+        <li>{{ num }}</li>
+    {% endfor %}
+</ul>
+
+
+</body>
+</html>

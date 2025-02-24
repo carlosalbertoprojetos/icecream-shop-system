@@ -11,4 +11,5 @@ urlpatterns = [
     # path("listar", views.listar, name="listar"),
     # path("editar", views.editar, name="menu"),
     # path("deletar", views.deletar, name="deletar"),
+    path('upload/', views.upload_lottery_results, name='upload_lottery_results'),
 ]
