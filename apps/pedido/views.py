@@ -123,40 +123,40 @@ def listarCarrinho(request):
 
 @login_required(login_url="/admin/login/?next=/admin/")
 def criarPedido(request):
-    if request.method == "POST":
-        bd_forma_pagamento = request.POST.get("forma_pagamento")
-        forma_pagamento = FormaPagamento.objects.get(id=bd_forma_pagamento)
+    pedido = None  # Inicializa como None para evitar erro de atributo inexistente
 
-        # Obtém o carrinho da sessão, ou inicializa como vazio
-        carrinho = request.session.get("carrinho", {})
+    # if request.method == "POST":
+    #     bd_forma_pagamento = request.POST.get("forma_pagamento")
+    #     forma_pagamento = FormaPagamento.objects.get(id=bd_forma_pagamento)
 
-        total_geral = 0
-        # Calcula o total geral
-        for key, item in carrinho.items():
-            preco = item["preco"]
-            quantidade = item["quantidade"]
-            total_geral += preco * quantidade
+    #     # Obtém o carrinho da sessão, ou inicializa como vazio
+    #     carrinho = request.session.get("carrinho", {})
 
-        pedido = Pedido.objects.create(
-            usuario=request.user,
-            forma_pagamento=forma_pagamento,
-            total=total_geral,
-            atendente=request.user,
-        )
+    #     total_geral = sum(item["preco"] * item["quantidade"] for item in carrinho.values())
 
-        # Iterando pelos itens e imprimindo os preços
-        for key, item in carrinho.items():
-            ItensCarrinho.objects.create(
-                pedido=pedido,
-                produto=Produto.objects.get(id=key),
-                quantidade=item["quantidade"],
-                preco=item["preco"],
-            )
+    #     pedido = Pedido.objects.create(
+    #         usuario=request.user,
+    #         forma_pagamento=forma_pagamento,
+    #         total=total_geral,
+    #         atendente=request.user,
+    #     )
 
-    # Limpa a sessão após criar o pedido
-    # request.session.flush()
+    #     # Adiciona os itens ao pedido
+    #     for key, item in carrinho.items():
+    #         ItensCarrinho.objects.create(
+    #             pedido=pedido,
+    #             produto=Produto.objects.get(id=key),
+    #             quantidade=item["quantidade"],
+    #             preco=item["preco"],
+    #         )
 
-    return redirect("pedido:pedidoFinalizado", pedido.id)
+    #     # Limpa o carrinho após criar o pedido
+    #     del request.session["carrinho"]
+
+    #     return redirect("pedido:pedidoFinalizado", pedido.id)
+
+    # Caso a requisição não seja POST, redireciona para outra página
+    return redirect("produto:listar_produtos")  # Ajuste para uma página de erro apropriada
 
 
 # View para buscar endereço a partir do CEP
