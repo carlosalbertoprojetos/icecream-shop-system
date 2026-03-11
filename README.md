@@ -1,4 +1,4 @@
-# Sistema de Gestão de Sorveteria
+# Sistema para gestão de sorveteria - IceCream Shop System
 
 Este projeto é uma **aplicação web baseada em Django** para gerenciar uma sorveteria, incluindo funcionalidades de gerenciamento de produtos, pedidos, clientes e mais.
 
@@ -91,3 +91,4 @@ A lista completa das dependências pode ser encontrada no [requirements.txt](./r
 4. **Gerenciamento de Clientes**: Acompanhar detalhes e preferências dos clientes.
 5. **API REST**: Expor os dados da aplicação por meio de uma API REST para integração com outros sistemas.
 6. **Tempo de Sessão**: Desloga automaticamente os usuários após um período de inatividade.
+
